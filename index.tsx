@@ -1,7 +1,7 @@
   import axios from 'axios';
   import React, { useEffect, useState } from 'react'
   // recharts needs client component which I'm using mac-mojave defaults to <client> opposed to newly @14+? <server-component/> defaults
-  import { AreaChart, Area, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+  import { Legend, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 
   // @reduxjs/toolkit global state management
   import {useSelector, useDispatch} from 'react-redux'
@@ -96,26 +96,17 @@
     // );
 
     const renderLineChart = (
-      <AreaChart width={730} height={250} data={data}
-    margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-    <defs>
-      <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
-        <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
-      </linearGradient>
-      <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
-        <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
-      </linearGradient>
-    </defs>
-    <XAxis dataKey="name" />
-    <YAxis />
-    <CartesianGrid strokeDasharray="3 3" />
-    <Tooltip />
-    <Area type="monotone" dataKey="h" stroke="#8884d8" fillOpacity={1} fill="green" />
-    <Area type="monotone" dataKey="l" stroke="#82ca9d" fillOpacity={0.5} fill="red" />
-    {/* <Area type="monotone" dataKey="l" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" /> */}
-  </AreaChart>
+      <LineChart id="candlestickChart" width={730} height={250} data={data}
+  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+  <CartesianGrid strokeDasharray="3 3" />
+  <XAxis dataKey="date" />
+  <YAxis />
+  <Tooltip />
+  <Legend />
+  <Line type="monotone" dataKey="h" stroke="#33af52" />
+  
+  <Line type="monotone" dataKey="l" stroke="#ed1c24" />
+</LineChart>
     )
 
 
