@@ -13,6 +13,7 @@ export interface keyRatiosINTERFACE {
 
 export interface candlestickINTERFACE {
     id: number,
+    time: number,
     open: number,
     low: number,
     high: number,
