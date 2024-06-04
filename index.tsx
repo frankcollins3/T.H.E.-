@@ -98,14 +98,15 @@
     const renderLineChart = (
       <LineChart id="candlestickChart" width={730} height={250} data={data}
   margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-  <CartesianGrid strokeDasharray="3 3" />
+  <CartesianGrid strokeDasharray="20 20" />
   <XAxis dataKey="date" />
   <YAxis />
   <Tooltip />
   <Legend />
   <Line type="monotone" dataKey="h" stroke="#33af52" />
-  
   <Line type="monotone" dataKey="l" stroke="#ed1c24" />
+  <Line type="monotone" dataKey="o" stroke="indigo" />
+  <Line type="monotone" dataKey="c" stroke="hotpink" />
 </LineChart>
     )
 
