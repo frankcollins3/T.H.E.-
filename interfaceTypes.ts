@@ -26,3 +26,9 @@ export interface tradeTickerINTERFACE {
     quantity: number,
     price: Number
 }
+
+export interface APPLEcompanyINTERFACE {
+    keyRatios: keyRatiosINTERFACE | null,
+    candlestick: candlestickINTERFACE | null,
+    tradeTicker: tradeTickerINTERFACE | null,
+}
