@@ -19,3 +19,10 @@ export interface candlestickINTERFACE {
     close: number,
     volume: number | null
 }
+
+// in a fullly full stack app would possibly denormalize userid | username into these tables.
+export interface tradeTickerINTERFACE {
+    time: string, // or GraphQL Scalar type Date
+    quantity: number,
+    price: Number
+}
