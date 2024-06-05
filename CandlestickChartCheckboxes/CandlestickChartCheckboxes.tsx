@@ -20,25 +20,61 @@ function RENDER() {
         <Container id={styles.cont}>            
 
         <Container id={styles.subCont1}>
-        <pre className={styles.checkboxText}> ^ </pre>     
-        <input type="checkbox"/>       
-        <pre className={styles.checkboxText}> ^ </pre>     
-        <input type="checkbox"/>       
 
+        <input id="chbx1" className="chbx" type="checkbox"/>
+        <label htmlFor="chbx1"></label>
+
+        <input id="chbx2" className="chbx" type="checkbox"/>
+        <label htmlFor="chbx2"></label>
+        
+        {/* <Container className={styles.innerSubCont}>
+        <pre className={styles.checkboxText}> ^ </pre>     
+        <input type="checkbox"/>       
         </Container>
-{/* could just make same classes and have differentiated inline styling to handle {align-self} but for readability different classes */}
-        <Container id={styles.subCont2}>   
         
         <Container className={styles.innerSubCont}>
+        <pre className={styles.checkboxText}> ^ </pre>     
+        <input type="checkbox"/>       
+    </Container> */}
+
+        </Container>
+        {/* could just make same classes and have differentiated inline styling to handle {align-self}  */}
+        <Container className={styles.subCont2}>   
+
+        <input id="chbx3" className="chbx" type="checkbox"/>
+        <label htmlFor="chbx3"></label>
+
+        <input id="chbx4" className="chbx" type="checkbox"/>
+        <label htmlFor="chbx4"></label>
+
+        <input id="chbx5" className="chbx" type="checkbox"/>
+        <label htmlFor="chbx5"></label>
+
+        <input id="chbx6" type="checkbox"/>
+        <label htmlFor="chbx6"></label>
+
+        {/* <Container className={styles.innerSubCont}>
         <pre className={styles.checkboxText}> O: </pre>     
         <input type="checkbox"/>       
         </Container>
+
+        <Container className={styles.innerSubCont}>
         <pre className={styles.checkboxText}> H: </pre>     
         <input type="checkbox"/>       
+        </Container>
+
+        <Container className={styles.innerSubCont}>            
         <pre className={styles.checkboxText}> L: </pre>     
         <input type="checkbox"/>       
-        <pre className={styles.checkboxText}> C: </pre>     
+        </Container>
+
+        
+        <Container className={styles.innerSubCont}>
+        <pre > C: </pre>     
         <input type="checkbox"/>       
+        </Container> */}
+
+
         </Container>
 
         </Container>
