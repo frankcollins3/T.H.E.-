@@ -1,17 +1,11 @@
-// @redux-js/toolkit
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { APPLEcompanyINTERFACE } from 'Interface/InterfaceTypes';
 
 interface StocksSliceState {
-  USERNAME_INPUT: string;     
-
   APPLE: APPLEcompanyINTERFACE
 }
 
 const initialState: StocksSliceState = {    
-  USERNAME_INPUT: 'u name',
-
   APPLE:{
       keyRatios: {
           id: 0,
@@ -42,21 +36,24 @@ const initialState: StocksSliceState = {
         }   
     }
 }
-
                                         
 const stocksSlice = createSlice({
   name: 'stocks',
   initialState,
   reducers: { 
-    SET_USERNAME_INPUT_SIGNUP: (state, action) => { state.USERNAME_INPUT = action.payload },
+    
+    SET_APPLE: (state, action) => { state.APPLE = action.payload },
 
-    SET_APPLE: (state, action) => { state.APPLE = action.payload },    
+    SET_APPLE_KEY_RATIOS: (state, action) => { state.APPLE.keyRatios = action.payload },    
+    SET_APPLE_CANDLESTICK: (state, action) => { state.APPLE.candleStick = action.payload },    
+    SET_APPLE_TICKER: (state, action) => { state.APPLE.tradeTicker = action.payload },    
+ 
   },
 });
 
 export const 
 { 
-    SET_USERNAME_INPUT_SIGNUP,    
+       
 } = stocksSlice.actions;
 
 export default stocksSlice.reducer;
