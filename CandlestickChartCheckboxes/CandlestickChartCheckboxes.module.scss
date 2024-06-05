@@ -1,0 +1,41 @@
+
+$greystern: rgb(100, 88, 88);
+
+#cont {
+    // margin-top: 0.5em;
+    margin: 0.5em 0.5em 0 0.5em;
+    width: 300px;
+    // border: 2px solid $greystern;
+
+    display: flex;
+    align-self: flex-start;
+    flex-direction: row;
+    // possibly space-around
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+#subCont1 {
+    // yes redundant data for readability and speed until refactor if enough time. 
+    display: flex;
+    align-self: flex-start;
+    flex-direction: row;
+    // possibly space-around
+    justify-content: center;
+    align-items: center;
+}
+
+#subCont2 {
+    display: flex;
+    align-self: flex-end;
+}
+
+.innerSubCont {
+    width: 45px;
+    border: 1px solid rgb(84, 207, 224);
+    display: grid;
+    grid-template-columns: 40% 40%;
+    padding: 0;
+}
+
