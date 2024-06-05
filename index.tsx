@@ -46,13 +46,13 @@
 
     const data = [      
 
-      { o: 185, h: 199, l: 184, c: 186, volume: 85354356, date: '5-30-2024', },
-      { o: 188, h: 202, l: 186, c: 186, volume: 83128240, date:  '5-31-2024', },
-      { o: 185, h: 197, l: 184, c: 186, volume: 80247739, date: '6-0-2024', },
-      { o: 186, h: 189, l: 186, c: 187, volume: 83128240, date:  '6-1-2024', },
-      { o: 190, h: 201, l: 189, c: 200, volume: 83128240, date:  '6-2-2024', },
-      { o: 190, h: 201, l: 189, c: 200, volume: 83128240, date:  '6-3-2024', },
-      { o: 192, h: 202, l: 190, c: 202, volume: 83128240, date:  '6-4-2024', },
+      { open: 185, high: 199, low: 184, close: 186, volume: 85354356, date: '5-30-2024', },
+      { open: 188, high: 202, low: 186, close: 186, volume: 83128240, date:  '5-31-2024', },
+      { open: 185, high: 197, low: 184, close: 186, volume: 80247739, date: '6-0-2024', },
+      { open: 186, high: 189, low: 186, close: 187, volume: 83128240, date:  '6-1-2024', },
+      { open: 190, high: 201, low: 189, close: 200, volume: 83128240, date:  '6-2-2024', },
+      { open: 190, high: 201, low: 189, close: 200, volume: 83128240, date:  '6-3-2024', },
+      { open: 192, high: 202, low: 190, close: 202, volume: 83128240, date:  '6-4-2024', },
   ];
 
     const renderLineChart = (
@@ -64,12 +64,12 @@
       <Tooltip />
       <Legend />
 
-      { CANDLESTICK_CHART_MULTI_SHOW_O === true && <Line className="line" type="monotone" dataKey="o" stroke="#208075" /> }
-      { CANDLESTICK_CHART_MULTI_SHOW_H === true && <Line type="monotone" dataKey="h" stroke="#33af52" /> }
-      { CANDLESTICK_CHART_MULTI_SHOW_L === true && <Line type="monotone" dataKey="l" stroke="#ed1c24" /> }
-      { CANDLESTICK_CHART_MULTI_SHOW_C === true && <Line type="monotone" dataKey="c" stroke="rgb(84, 207, 224)" /> }
+      { CANDLESTICK_CHART_MULTI_SHOW_O === true && <Line className="line" type="monotone" dataKey="open" stroke="#208075" /> }
+      { CANDLESTICK_CHART_MULTI_SHOW_H === true && <Line type="monotone" dataKey="high" stroke="#33af52" /> }
+      { CANDLESTICK_CHART_MULTI_SHOW_L === true && <Line type="monotone" dataKey="low" stroke="#ed1c24" /> }
+      { CANDLESTICK_CHART_MULTI_SHOW_C === true && <Line type="monotone" dataKey="close" stroke="rgb(84, 207, 224)" /> }
 
-      { CANDLESTICK_CHART_MULTI_SHOW_V === true && <Line type="monotone" dataKey="c" stroke="rgb(84, 207, 224)" /> }
+      { CANDLESTICK_CHART_MULTI_SHOW_V === true && <Line type="monotone" dataKey="volume" stroke="rgb(84, 207, 224)" /> }
       {/* <Line type="monotone" dataKey="h" stroke="#33af52" /> */}
       {/* <Line type="monotone" dataKey="l" stroke="#ed1c24" /> */}
       {/* <Line type="monotone" dataKey="c" stroke="rgb(84, 207, 224)" /> */}
