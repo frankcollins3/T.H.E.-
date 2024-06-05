@@ -20,3 +20,9 @@ example OHLC data (open, high, low, close):
 
 // would be dummy/hypothetical data, NOT: "hey AI can you grab most accurate data of moment or this week of X"
 // * * * * * * * * * * *
+
+[6-5-24]
+candlestick charts & key ratios: facts
+analyst takes: opinions mixed with varying degrees of facts
+can AI scrape web and establish rating based on consistency of analyst projections (& other measurables)
+// * * * * * * * * * * *
