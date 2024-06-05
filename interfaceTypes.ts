@@ -12,38 +12,39 @@
 
 export interface keyRatiosINTERFACE {
     id: number,
-    marketCap: number,
+    marketCap: number | null
     sharesOutstanding: number,
     peRatio: number,
     psRatio: number,
     pbRatio: number,
     pegRatio: number,
     currentRatio: number,
-    debtToEquityRatio: number,
+    debtEquityRatio: number,
     EPS: number,
 }
 
 export interface candlestickINTERFACE {
-    id: number,
-    open: number,
-    low: number,
-    high: number,
-    close: number,
+    id: number| null,
+    date: string | null,
+    open: number | null,
+    high: number | null,
+    low: number | null,
+    close: number | null,
     volume: number | null
 }
 
 // in a fullly full stack app would possibly denormalize userid | username into these tables.
 export interface tradeTickerINTERFACE {
+    id: number,
     time: string, // or GraphQL Scalar type Date
     quantity: number,
     price: Number
 }
-
 // export interface analystINTERFACE { }
 
 export interface APPLEcompanyINTERFACE {
     keyRatios: keyRatiosINTERFACE | null,
-    candlestick: candlestickINTERFACE | null,
+    candleStick: candlestickINTERFACE | null,
     tradeTicker: tradeTickerINTERFACE | null,
     // analysts: analystINTERFACE | null,
 }
