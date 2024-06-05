@@ -12,6 +12,7 @@ import {
  } from 'redux/stocks/stocksSlice';
 
  // utility
+ import { nothing } from "utility/utilityValues";
  import { APPLEcompanyINTERFACE, tradeTickerINTERFACE } from "Interface/InterfaceTypes";
  
 
@@ -83,7 +84,7 @@ export function useStocks() {
 
 type Props = { children: ReactNode }
 
-export function StockProvider({children}:Props) {
+export function StocksProvider({children}:Props) {
 
     const dispatch = useDispatch()
     // const CURRENT_USER = useSelector((state:RootState) => state.currentUser.CURRENT_USER)
@@ -136,30 +137,37 @@ export function StockProvider({children}:Props) {
     }
 
     const resetOHLCV = () => {
+        Promise.all([
+            CANDLESTICK_CHART_MULTI_SHOW_O === true ? dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O()) : nothing(),
+            CANDLESTICK_CHART_MULTI_SHOW_H === true ? dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H()) : nothing(),
+            CANDLESTICK_CHART_MULTI_SHOW_L === true ? dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L()) : nothing(),
+            CANDLESTICK_CHART_MULTI_SHOW_C === true ? dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C()) : nothing(),
+        ])
+        // const objectOHLCV:any = {
+        // // const objectOHLVC:tradeTickerINTERFACE = {           // can't because these are populated with function and interface allows nums | null.
+        //     o: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O()),
+        //     h: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H()),
+        //     l: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L()),
+        //     c: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C()),
+        //     V: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V()),
+        // }
+        // if (CANDLESTICK_CHART_MULTI_SHOW_O === true) {
+        //     objectOHLCV.o()
+        // }
+        // if (CANDLESTICK_CHART_MULTI_SHOW_H === true) {
+        //     objectOHLCV.h()
+        // }
+        // if (CANDLESTICK_CHART_MULTI_SHOW_L === true) {
+        //     objectOHLCV.l()
+        // }
+        // if (CANDLESTICK_CHART_MULTI_SHOW_C === true) {
+        //     objectOHLCV.c()
+        // }
+        // if (CANDLESTICK_CHART_MULTI_SHOW_V === true) {
+        //     objectOHLCV.v()
+        // }
 
-        const objectOHLCV:any = {
-        // const objectOHLVC:tradeTickerINTERFACE = {           // can't because these are populated with function and interface allows nums | null.
-            o: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O()),
-            h: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H()),
-            l: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L()),
-            c: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C()),
-            V: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V()),
-        }
-        if (CANDLESTICK_CHART_MULTI_SHOW_O === true) {
-            objectOHLCV.o()
-        }
-        if (CANDLESTICK_CHART_MULTI_SHOW_H === true) {
-            objectOHLCV.h()
-        }
-        if (CANDLESTICK_CHART_MULTI_SHOW_L === true) {
-            objectOHLCV.l()
-        }
-        if (CANDLESTICK_CHART_MULTI_SHOW_C === true) {
-            objectOHLCV.c()
-        }
-        if (CANDLESTICK_CHART_MULTI_SHOW_V === true) {
-            objectOHLCV.v()
-        }
+        // return "hey"
     }
             
     const value = {
