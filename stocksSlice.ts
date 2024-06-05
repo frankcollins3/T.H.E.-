@@ -2,7 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { APPLEcompanyINTERFACE } from 'Interface/InterfaceTypes';
 
 interface StocksSliceState {
-  APPLE: APPLEcompanyINTERFACE
+  APPLE: APPLEcompanyINTERFACE;
+  CANDLESTICK_CHART_VIEW_MULTI: false;
+
 }
 
 const initialState: StocksSliceState = {    
@@ -34,14 +36,17 @@ const initialState: StocksSliceState = {
             quantity: 0,
             price: 0,
         }   
-    }
+    },
+
+    // 
+  CANDLESTICK_CHART_VIEW_MULTI: false
 }
                                         
 const stocksSlice = createSlice({
   name: 'stocks',
   initialState,
   reducers: { 
-    
+
     SET_APPLE: (state, action) => { state.APPLE = action.payload },
 
     SET_APPLE_KEY_RATIOS: (state, action) => { state.APPLE.keyRatios = action.payload },    
