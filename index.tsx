@@ -32,8 +32,6 @@
     const CANDLESTICK_CHART_MULTI_SHOW_C = useSelector( (state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_C)
     const CANDLESTICK_CHART_MULTI_SHOW_V = useSelector( (state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_V)
 
-    // const INTRO_ANIMATION_DONE = useSelector( (state:RootState) => state.intro.INTRO_ANIMATION_DONE)
-
     const apple = {
       "Market Cap": "$2,500,000,000,000",
       "Shares Outstanding": "16,000,000,000",
@@ -45,14 +43,8 @@
       "Debt to Equity Ratio": "0.4",
       "EPS": "$5.60"
     }
-    
-    //      utils.ts:         dayNames:string[] monthNames:string[]
-    const data = [
-      // { y: 'amt', x: 'uv', uv: 400, pv: 2400, amt: 2400 },
-      // { y: 'amt', x: 'uv', uv: 200, pv: 1200, amt: 1200 },
-      // { y: 'amt', x: 'uv', uv: 250, pv: 800, amt: 1200 },
 
-// might denormalize date into these fields. --> UDPATE: not just date, time. and timeframe: week, month, year... UPDATE -> back to just date
+    const data = [      
 
       { o: 185, h: 199, l: 184, c: 186, volume: 85354356, date: '5-30-2024', },
       { o: 188, h: 202, l: 186, c: 186, volume: 83128240, date:  '5-31-2024', },
@@ -61,47 +53,29 @@
       { o: 190, h: 201, l: 189, c: 200, volume: 83128240, date:  '6-2-2024', },
       { o: 190, h: 201, l: 189, c: 200, volume: 83128240, date:  '6-3-2024', },
       { o: 192, h: 202, l: 190, c: 202, volume: 83128240, date:  '6-4-2024', },
-
-      // ohlcv on the y axis.  x axis will be doing the same thang
-      // MVP -> 7 day data; 
   ];
-  // possible algorithms like: the higher the volume the more short interest in stock. 
-
-  
-
-    // const renderLineChart = (
-    //   <LineChart id="candlestickChart" width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>        
-    //       {/* SHOW_KEY === "o" &&      */}
-    //     <Line  type="monotone" dataKey="h" stroke="olivedrab" /> 
-    //     {/* <Line  type="monotone" dataKey="c" stroke="goldenrod" /> */}
-    //     {/* <Line  type="monotone" dataKey="l" stroke="indigo" /> */}
-    //     {/* <Line  type="monotone" dataKey="c" stroke="lightorange" /> */}
-    //     {/* <Line type="monotone" dataKey="volume" stroke="dodgerblue" />  */}
-
-    //     {/* <Line type="monotone" dataKey="amt" stroke="#2F4F4F" /> */}
-    //     {/* <Line type="monotone" dataKey="amt" stroke="#dbcfdf" /> */}
-    //     <CartesianGrid stroke="moccasin" strokeDasharray="20 20" />
-    //     <XAxis dataKey="date" />
-    //     <YAxis dataKey="h"/>
-    //     <Tooltip />
-    //   </LineChart>
-    // );
 
     const renderLineChart = (
-      <LineChart id="candlestickChart" width={730} height={250} data={data}
+      <LineChart id="candlestickChart" width={730} height={430} data={data}
       margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
       <CartesianGrid strokeDasharray="20 20" />
       <XAxis dataKey="date" />
       <YAxis />
       <Tooltip />
       <Legend />
-      <Line type="monotone" dataKey="h" stroke="#33af52" />
-      <Line type="monotone" dataKey="l" stroke="#ed1c24" />
-      <Line type="monotone" dataKey="o" stroke="indigo" />
-      <Line type="monotone" dataKey="c" stroke="hotpink" />
+
+      { CANDLESTICK_CHART_MULTI_SHOW_O === true && <Line className="line" type="monotone" dataKey="o" stroke="#208075" /> }
+      { CANDLESTICK_CHART_MULTI_SHOW_H === true && <Line type="monotone" dataKey="h" stroke="#33af52" /> }
+      { CANDLESTICK_CHART_MULTI_SHOW_L === true && <Line type="monotone" dataKey="l" stroke="#ed1c24" /> }
+      { CANDLESTICK_CHART_MULTI_SHOW_C === true && <Line type="monotone" dataKey="c" stroke="rgb(84, 207, 224)" /> }
+
+      { CANDLESTICK_CHART_MULTI_SHOW_V === true && <Line type="monotone" dataKey="c" stroke="rgb(84, 207, 224)" /> }
+      {/* <Line type="monotone" dataKey="h" stroke="#33af52" /> */}
+      {/* <Line type="monotone" dataKey="l" stroke="#ed1c24" /> */}
+      {/* <Line type="monotone" dataKey="c" stroke="rgb(84, 207, 224)" /> */}
 
   {/* volume will be slighted separated */}
-  {/* <Line type="monotone" dataKey="v" stroke="dodgerblue" /> */}
+  {/* <Line type="monotone" dataKey="volume" stroke="rebeccapurple" /> */}
 </LineChart>
     )
 
