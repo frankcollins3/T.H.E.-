@@ -21,11 +21,11 @@ function RENDER() {
 
         <Container id={styles.subCont1}>
 
-        <input id="chbx1" className="chbx" type="checkbox"/>
-        <label htmlFor="chbx1"></label>
+        <input id="chbx1" className={styles.chbx} type="checkbox"/>
+        <label className={styles.label} htmlFor="chbx1"></label>
 
-        <input id="chbx2" className="chbx" type="checkbox"/>
-        <label htmlFor="chbx2"></label>
+        {/* <input id="chbx2" className={styles.chbx} type="checkbox"/>
+        <label className={styles.label} htmlFor="chbx2"></label> */}
         
         {/* <Container className={styles.innerSubCont}>
         <pre className={styles.checkboxText}> ^ </pre>     
@@ -39,19 +39,21 @@ function RENDER() {
 
         </Container>
         {/* could just make same classes and have differentiated inline styling to handle {align-self}  */}
-        <Container className={styles.subCont2}>   
+        <Container id={styles.subCont2}>   
 
-        <input id="chbx3" className="chbx" type="checkbox"/>
-        <label htmlFor="chbx3"></label>
+        <input id="chbx3"  className={styles.chbx} type="checkbox"/>
+        <label className={styles.label} htmlFor="chbx3"></label>
 
-        <input id="chbx4" className="chbx" type="checkbox"/>
-        <label htmlFor="chbx4"></label>
+        <input id="chbx4" className={styles.chbx} type="checkbox"/>
+        <label  className={styles.label} htmlFor="chbx4"></label>
 
-        <input id="chbx5" className="chbx" type="checkbox"/>
-        <label htmlFor="chbx5"></label>
+        <input id="chbx5" className={styles.chbx} type="checkbox"/>
+        <label className={styles.label} htmlFor="chbx5"></label>
 
-        <input id="chbx6" type="checkbox"/>
-        <label htmlFor="chbx6"></label>
+        <input id="chbx5" className={styles.chbx} type="checkbox"/>
+        <label className={styles.label} htmlFor="chbx5"></label>
+
+        {/* <input type="checkbox"/> */}
 
         {/* <Container className={styles.innerSubCont}>
         <pre className={styles.checkboxText}> O: </pre>     
