@@ -6,11 +6,14 @@
   // @reduxjs/toolkit global state management
   import {useSelector, useDispatch} from 'react-redux'
   import { RootState } from 'redux/store/rootReducer';
-  // import { SET_ALL_USERS, SET_ALL_USERNAMES, SET_ALL_EMAILS, SET_LOCALE } from 'redux/allOrAny/allOrAnySlice';
+  import { 
+    TOGGLE_CANDLESTICK_CHART_VIEW_MULTI,
+    TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L,
+    TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V
+   } from 'redux/stocks/stocksSlice';
   
   import Container from 'react-bootstrap/Container';
-  import IntroFooter from "components/Footer/IntroFooter"
-  import LoginSignupForm from "components/LoginSignup/LoginSignupForm"
+  import CandlestickChartCheckboxes from "components/CandlestickChartCheckboxes";
 
 
   // utils
@@ -21,25 +24,15 @@
   export default function Main ( props:any ) {  
 
     const INTRO_ANIMATION_DONE = useSelector( (state:RootState) => state.intro.INTRO_ANIMATION_DONE)
-    // const data = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400}];
-    
-    // const data = [
-    //   { value: 12, date: "2024-12-12"},
-    //   { value: 25, date: "2024-12-11"},
-    //   { value: 5, date: "2024-12-10"},
-    // ]
+    const CANDLESTICK_CHART_SINGLE_SELECTION = useSelector( (state:RootState) => state.stocks.CANDLESTICK_CHART_SINGLE_SELECTION)
+    const CANDLESTICK_CHART_MULTI_SELECTION = useSelector( (state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SELECTION)
+    const CANDLESTICK_CHART_MULTI_SHOW_O = useSelector( (state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_O)
+    const CANDLESTICK_CHART_MULTI_SHOW_H = useSelector( (state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_H)
+    const CANDLESTICK_CHART_MULTI_SHOW_L = useSelector( (state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_L)
+    const CANDLESTICK_CHART_MULTI_SHOW_C = useSelector( (state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_C)
+    const CANDLESTICK_CHART_MULTI_SHOW_V = useSelector( (state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_V)
 
-    // const renderLineChart = (
-    //   <LineChart id="chart" data={data} width={200}>
-    //     <CartesianGrid />
-    //     <XAxis dataKey="date" />
-    //     <YAxis/>
-    //     <Tooltip />
-    //     <Line dataKey="value"/>
-    //   </LineChart>        
-    // )
-
-
+    // const INTRO_ANIMATION_DONE = useSelector( (state:RootState) => state.intro.INTRO_ANIMATION_DONE)
 
     const apple = {
       "Market Cap": "$2,500,000,000,000",
@@ -52,7 +45,6 @@
       "Debt to Equity Ratio": "0.4",
       "EPS": "$5.60"
     }
-
     
     //      utils.ts:         dayNames:string[] monthNames:string[]
     const data = [
@@ -62,13 +54,13 @@
 
 // might denormalize date into these fields. --> UDPATE: not just date, time. and timeframe: week, month, year... UPDATE -> back to just date
 
-      { o: 185, h: 199, l: 184, c: 186, volume: 85354356, date: '05-30-2024', },
-      { o: 188, h: 202, l: 186, c: 186, volume: 83128240, date:  '05-31-2024', },
-      { o: 185, h: 197, l: 184, c: 186, volume: 80247739, date: '06-00-2024', },
-      { o: 186, h: 189, l: 186, c: 187, volume: 83128240, date:  '06-01-2024', },
-      { o: 190, h: 201, l: 189, c: 200, volume: 83128240, date:  '06-02-2024', },
-      { o: 190, h: 201, l: 189, c: 200, volume: 83128240, date:  '06-03-2024', },
-      { o: 192, h: 202, l: 190, c: 202, volume: 83128240, date:  '06-04-2024', },
+      { o: 185, h: 199, l: 184, c: 186, volume: 85354356, date: '5-30-2024', },
+      { o: 188, h: 202, l: 186, c: 186, volume: 83128240, date:  '5-31-2024', },
+      { o: 185, h: 197, l: 184, c: 186, volume: 80247739, date: '6-0-2024', },
+      { o: 186, h: 189, l: 186, c: 187, volume: 83128240, date:  '6-1-2024', },
+      { o: 190, h: 201, l: 189, c: 200, volume: 83128240, date:  '6-2-2024', },
+      { o: 190, h: 201, l: 189, c: 200, volume: 83128240, date:  '6-3-2024', },
+      { o: 192, h: 202, l: 190, c: 202, volume: 83128240, date:  '6-4-2024', },
 
       // ohlcv on the y axis.  x axis will be doing the same thang
       // MVP -> 7 day data; 
@@ -97,16 +89,19 @@
 
     const renderLineChart = (
       <LineChart id="candlestickChart" width={730} height={250} data={data}
-  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-  <CartesianGrid strokeDasharray="20 20" />
-  <XAxis dataKey="date" />
-  <YAxis />
-  <Tooltip />
-  <Legend />
-  <Line type="monotone" dataKey="h" stroke="#33af52" />
-  <Line type="monotone" dataKey="l" stroke="#ed1c24" />
-  <Line type="monotone" dataKey="o" stroke="indigo" />
-  <Line type="monotone" dataKey="c" stroke="hotpink" />
+      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+      <CartesianGrid strokeDasharray="20 20" />
+      <XAxis dataKey="date" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Line type="monotone" dataKey="h" stroke="#33af52" />
+      <Line type="monotone" dataKey="l" stroke="#ed1c24" />
+      <Line type="monotone" dataKey="o" stroke="indigo" />
+      <Line type="monotone" dataKey="c" stroke="hotpink" />
+
+  {/* volume will be slighted separated */}
+  {/* <Line type="monotone" dataKey="v" stroke="dodgerblue" /> */}
 </LineChart>
     )
 
@@ -123,6 +118,8 @@
         {/* <div className="ghost"> empty </div> */}
 
         {renderLineChart}
+        <CandlestickChartCheckboxes/>
+        
 
         {/* <ShowAppPhone/> */}
 
