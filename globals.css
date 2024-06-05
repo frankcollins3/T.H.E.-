@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Moon+Dance&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@600&display=swap');
+  
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background-color: rgba(255, 255, 255, 0.922);
+  /* background-color: #FAF0E6; */
+  /* #F8F8FF; #FFFAF0; */
+}
+
+  .ghost {
+    opacity: 0.0;
+  }
+
+  #introMain {
+    /* background-color: red; */
+
+    /* background-color: #F8F8FF;         */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow: hidden;
+    box-sizing: border-box;    
+    /* padding-top: 0.5em;    */
+    /* border: 5px solid orange;  */
+  }
+
+  #MainIntro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* will be start */
+    align-items: center;
+    min-height: 100vh;
+    min-width: 100vw;
+    /* background-color: coral; */
+  }
+
+  #intro-row-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    /* border: 4px solid hotpink; */
+    /* border: 5px solid orange; */
+    /* min-width: 100vw; */
+    /* padding-left: -3em;
+    padding-right: -3em; */
+  }
+  
+  /* #intro-phone {
+    height: 300px;
+    min-width: 50%;
+  } */
+
+  #introFooter {
+    background-color: #9a7c5e;    
+    min-height: 10vh;
+    min-width: 100vw;    
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-;
+    flex-direction: row;
+    
+    background-image: url('/dojo-img/shuriken.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  #footerTabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #footerOrigamiSwan {
+    height: 85px;
+    width: 85px;
+    align-self: center;
+    position: relative;
+    left: 5px; 
+  }
+
+  #footerShuriken {
+    height: 15px;
+    width: 15px;
+    align-self: center;
+    position: relative;
+    right: 5px; 
+  }
+
+  .introFooterText {
+    font-family: Josefin Sans;
+    font-weight: bolder;
+    margin-left: 0.5em; 
+    margin-right: 0.5em; 
+    font-size: 18px; 
+  }
+
+  .introFooterText:hover { 
+    cursor: pointer;
+
+   }
+
+   #loginSignupMsg {
+    color: #351e0e;
+    font-size: 18px;
+   }
+
+   .halfPint { transform: scale(0.5); }
+
+
+   #candlestickChart {
+     font-family: cursive;
+     border: 1px solid rgba(0, 0, 0, 0.357);     
+     /* box-shadow: 2px 2px 2px moccasin; */
+  }
+
+  /* can only syle the linechart */
+  /* #tipbox { border-radius: 50%; color: purple; } */
+  
+  .line {
+    border: 2px solid #dbcfdf    
+   }
+
+   /* $fuzzy: "Fuzzy Bubbles", sans-serif;
+$josefina: "Josefin Sans", sans-serif;
+$graymaker: rgb(100, 88, 88);
+$grayphite: #44454fea;
+$blackrevolver: rgba(0, 0, 0, 0.357);
+$hothazel: #D86220;
+$padchick: 1px 10px;  */
+
