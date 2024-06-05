@@ -86,7 +86,13 @@ type Props = { children: ReactNode }
 export function StockProvider({children}:Props) {
 
     const dispatch = useDispatch()
-    const CURRENT_USER = useSelector((state:RootState) => state.currentUser.CURRENT_USER)
+    // const CURRENT_USER = useSelector((state:RootState) => state.currentUser.CURRENT_USER)
+    const CANDLESTICK_CHART_MULTI_SHOW_O = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_O)
+    const CANDLESTICK_CHART_MULTI_SHOW_H = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_H)
+    const CANDLESTICK_CHART_MULTI_SHOW_L = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_L)
+    const CANDLESTICK_CHART_MULTI_SHOW_C = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_C)
+    const CANDLESTICK_CHART_MULTI_SHOW_V = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_V)
+    
 
     const APPLE = {
         keyRatios: {
@@ -130,13 +136,29 @@ export function StockProvider({children}:Props) {
     }
 
     const resetOHLCV = () => {
-        const objectOHLVC:any = {
+
+        const objectOHLCV:any = {
         // const objectOHLVC:tradeTickerINTERFACE = {           // can't because these are populated with function and interface allows nums | null.
-            o: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O),
-            h: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H),
-            l: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L),
-            c: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C),
-            V: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V),
+            o: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O()),
+            h: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H()),
+            l: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L()),
+            c: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C()),
+            V: dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V()),
+        }
+        if (CANDLESTICK_CHART_MULTI_SHOW_O === true) {
+            objectOHLCV.o()
+        }
+        if (CANDLESTICK_CHART_MULTI_SHOW_H === true) {
+            objectOHLCV.h()
+        }
+        if (CANDLESTICK_CHART_MULTI_SHOW_L === true) {
+            objectOHLCV.l()
+        }
+        if (CANDLESTICK_CHART_MULTI_SHOW_C === true) {
+            objectOHLCV.c()
+        }
+        if (CANDLESTICK_CHART_MULTI_SHOW_V === true) {
+            objectOHLCV.v()
         }
     }
             
