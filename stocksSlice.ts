@@ -6,7 +6,10 @@ interface StocksSliceState {
   APPLE: APPLEcompanyINTERFACE;
 
   // toggles, determines to which of the below state options a user's selection applies: CANDLESTICK_CHART_SINGLE_SELECTION | CANDLESTICK__MULTI_SELECTION
+
+  // change to string
   CANDLESTICK_CHART_VIEW_MULTI: boolean;
+  CANDLESTICK_CHART_VIEW_HL_OC: boolean;
 
   // selection being: OHLCV.      multi selection splits between showing as 2 lines on linechart:   Open,Close | High,Low
   CANDLESTICK_CHART_SINGLE_SELECTION: string;   // 'o, h, l, c, v' candlestick
@@ -20,6 +23,7 @@ interface StocksSliceState {
 
   // changing UI from 2 L-chkbox to 1: single|multi.. if user checked multiple lines & toggles to single chart only:  keep last selected line
   CANDLESTICK_CHART_LAST_SELECTED_OHLC: string,
+  CANDLESTICK_CHART_CURR_DATA: candlestickINTERFACE
 
                   //  * * * * * * * possibly extending to multiple charts. 
   // CANDLESTICK_CHART_SHOW_CHARTS_BIN: boolean[]  //    [false, true, false, false] goes by index === true & renders chart. params: ohlcv data which index corresponding [i]->[i] w. this array
@@ -62,6 +66,7 @@ const initialState: StocksSliceState = {
 
     // CANDLESTICK_CHART_VIEW_MULTI
   CANDLESTICK_CHART_VIEW_MULTI: false,
+  CANDLESTICK_CHART_VIEW_HL_OC: false,
   CANDLESTICK_CHART_SINGLE_SELECTION: '',
   CANDLESTICK_CHART_MULTI_SELECTION: '',
 
@@ -73,6 +78,7 @@ const initialState: StocksSliceState = {
   // might be shown separately from OHLC, because it doesn't share the same info the other stocks represent.
   CANDLESTICK_CHART_MULTI_SHOW_V: false,
   CANDLESTICK_CHART_LAST_SELECTED_OHLC: '',
+  CANDLESTICK_CHART_CURR_DATA: { id: null, open: 0, close: 0, high: 0, low: 0, volume: 0, date: '' }
 }
                                         
 const stocksSlice = createSlice({
@@ -85,8 +91,9 @@ const stocksSlice = createSlice({
     SET_APPLE_KEY_RATIOS: (state, action) => { state.APPLE.keyRatios = action.payload },    
     SET_APPLE_CANDLESTICK: (state, action) => { state.APPLE.candleStick = action.payload },    
     SET_APPLE_TICKER: (state, action) => { state.APPLE.tradeTicker = action.payload },    
-
+    
     TOGGLE_CANDLESTICK_CHART_VIEW_MULTI: (state) => { state.CANDLESTICK_CHART_VIEW_MULTI = !state.CANDLESTICK_CHART_VIEW_MULTI },    
+    TOGGLE_CANDLESTICK_CHART_VIEW_HL_OC: (state) => { state.CANDLESTICK_CHART_VIEW_HL_OC = !state.CANDLESTICK_CHART_VIEW_HL_OC },    
     
     SET_CANDLESTICK_CHART_SINGLE_SELECTION: (state, action) => { state.CANDLESTICK_CHART_SINGLE_SELECTION = action.payload },
     SET_CANDLESTICK_CHART_MULTI_SELECTION: (state, action) => { state.CANDLESTICK_CHART_MULTI_SELECTION = action.payload },
@@ -97,6 +104,7 @@ const stocksSlice = createSlice({
     TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C: (state) => { state.CANDLESTICK_CHART_MULTI_SHOW_C = !state.CANDLESTICK_CHART_MULTI_SHOW_C },    
     TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V: (state) => { state.CANDLESTICK_CHART_MULTI_SHOW_V = !state.CANDLESTICK_CHART_MULTI_SHOW_V },      
     SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC: (state, action) => { state.CANDLESTICK_CHART_LAST_SELECTED_OHLC = action.payload },
+    SET_CANDLESTICK_CHART_CURR_DATA: (state, action) => { state.CANDLESTICK_CHART_CURR_DATA = action.payload },
   },
 });
 
@@ -107,7 +115,7 @@ export const
     SET_CANDLESTICK_CHART_SINGLE_SELECTION, SET_CANDLESTICK_CHART_MULTI_SELECTION,
 
     TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V,
-    SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC
+    SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC, SET_CANDLESTICK_CHART_CURR_DATA
 
 } = stocksSlice.actions;
 
