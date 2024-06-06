@@ -14,7 +14,10 @@
     import styles from "./CandlestickChartCheckboxes.module.scss"
     // import {TestHeader} from "styles/styledComponents/chartCheckbox"
 
+
     // utility
+    import { splitDateSetObject } from 'utility/utilityValues';
+    import { dayMonthYearINTERFACE } from 'Interface/InterfaceTypes';
     import {useImage} from "Contexts/Img"
     import {useStocks} from "Contexts/StocksContext"
     import season from "utility/candlestickData"
@@ -97,7 +100,6 @@
         }
         
         const singleMultiViewToggle = () => {
-
             // think this is a race condition but technically not because the redux state always wins by this point and this triggers
             // problem: if you are on single view with a check clicked, now click to multi view it should just keep that check
             // at present: CHART_VIEW_MULTI === false but if you click this function resetOHLCV() invokes even though it shouldn't.
@@ -128,27 +130,33 @@
 
 
         const filterDataByParams = () => {
-            if (CANDLESTICK_CHART_CURR_DATA[1] === null || CANDLESTICK_CHART_CURR_DATA[1] === null) {
+            console.log(CANDLESTICK_CHART_CURR_DATA[1])
+            if (CANDLESTICK_CHART_CURR_DATA[1] === null || CANDLESTICK_CHART_CURR_DATA[1] === undefined) {
                 dispatch(SET_CANDLESTICK_CHART_CURR_DATA(season))
             } else {
                 // split day from date.
 
-                let filteredData = CANDLESTICK_CHART_CURR_DATA.filter((currData) => {
+                let filteredData = CANDLESTICK_CHART_CURR_DATA.reduce(async (currData) => {
+                    let conditionMet:boolean = false;
                     console.log(currData)
                     const { date } = currData;
-                    let dayDate:any = '';
-                    let monthDate:any = ''
-                    let yearDate:any = ''
+                    let startDate = '5-1-2024'
+                    let cutoffDate = '5-9-2024'
 
-                    
+                    // REUSABLE FUNCTION that applies that object to params. use it for:     [startDate, cutoffDate, curData]
+                    //  const startDate as params
+                    let startDateObject = await splitDateSetObject(startDate);
+                    let cutoffDateObject = await splitDateSetObject(cutoffDate);
+
+                    console.log('startdateobject', startDateObject)
+                    console.log('cutoffdateObject', cutoffDateObject)
                     // bypassing helper functions
-                    const dateSplit:any = date?.split('-')   // would type string|number|undefined for parseInt() but method wouldn't exist
-                    console.log('dateSplit', dateSplit)
-
-                    if (dateSplit[0]) { monthDate = dateSplit[0] }
                     
-                    if (dateSplit[1]) { dayDate = dateSplit[1] }
-                    if (dateSplit[2]) { yearDate = dateSplit[2] }
+                    if (currData?.date === cutoffDate) {
+                        conditionMet = true;
+                    } else {
+
+                    }
 
             
 
