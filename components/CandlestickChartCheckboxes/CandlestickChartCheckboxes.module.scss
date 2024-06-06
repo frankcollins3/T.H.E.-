@@ -70,7 +70,6 @@ $greystern: rgb(100, 88, 88);
     border: 2px solid $greystern;
     border-radius: 4px;
     color: $greystern;
-
 }
 
 /* Hide the default checkbox */
@@ -344,5 +343,65 @@ $greystern: rgb(100, 88, 88);
 
 /* Style the pseudo-element to show the checkmark when checkbox is checked */
 .chbx5[type="checkbox"]:checked + .label5:after {
+    opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+
+//  label 0 
+
+/* Style the .label to resemble a checkbox */
+.label0 {
+    display: inline-block;
+    position: relative;
+    padding-left: 25px; /* Adjust as needed */
+    cursor: pointer;
+    margin: 0 2.5px; 
+}
+
+/* Style the pseudo-element to create the checkbox */
+.label0:before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    // margin: 0 50px;    
+    width: 20px; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
+    border: 2px solid $greystern; /* Checkbox border */
+    border-radius: 4px;
+    // border: 2px solid $greystern; /* Checkbox border */
+    background-color: transparent; /* Checkbox background color */
+}
+
+/* Style the pseudo-element when checkbox is checked */ 
+.chbx0[type="checkbox"]:checked + .label0:before {
+    // background-color: #007bff; /* Change to desired checked color */
+}
+
+/* Style the pseudo-element to resemble the checkmark */
+.label0:after {
+    content: '\2713'; /* Unicode checkmark character */
+    font-size: 16px; /* Adjust as needed */
+    // background-color: blue;
+    color: $greystern; /* Color of the checkmark */
+    // color: $greystern; /* Color of the checkmark */
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0; /* Hide the checkmark by default */
+}
+
+/* Style the pseudo-element to show the checkmark when checkbox is checked */
+.chbx0[type="checkbox"]:checked + .label0:after {
     opacity: 1;
 }
