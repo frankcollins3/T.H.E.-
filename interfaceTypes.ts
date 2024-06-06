@@ -33,6 +33,8 @@ export interface candlestickINTERFACE {
     volume: number | null
 }
 
+export type candlestickARRAYTYPE = candlestickINTERFACE[]
+
 // in a fullly full stack app would possibly denormalize userid | username into these tables.
 export interface tradeTickerINTERFACE {
     id: number,
@@ -47,6 +49,12 @@ export interface APPLEcompanyINTERFACE {
     candleStick: candlestickINTERFACE | null,
     tradeTicker: tradeTickerINTERFACE | null,
     // analysts: analystINTERFACE | null,
+}
+
+export interface dayMonthYear {
+    day: string | number,
+    month: string | number, 
+    year: string | number
 }
 
 
