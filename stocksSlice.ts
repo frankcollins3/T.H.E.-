@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { APPLEcompanyINTERFACE } from 'Interface/InterfaceTypes';
+import { candlestickINTERFACE, APPLEcompanyINTERFACE } from 'Interface/InterfaceTypes';
 
+//                ../ probably better as candlestickChartSlice.ts but in case we extended this and wanted to keep same file like redux-connect.
 interface StocksSliceState {
   APPLE: APPLEcompanyINTERFACE;
 
@@ -19,6 +20,13 @@ interface StocksSliceState {
 
   // changing UI from 2 L-chkbox to 1: single|multi.. if user checked multiple lines & toggles to single chart only:  keep last selected line
   CANDLESTICK_CHART_LAST_SELECTED_OHLC: string,
+
+                  //  * * * * * * * possibly extending to multiple charts. 
+  // CANDLESTICK_CHART_SHOW_CHARTS_BIN: boolean[]  //    [false, true, false, false] goes by index === true & renders chart. params: ohlcv data which index corresponding [i]->[i] w. this array
+  // CANDLESTICK_CHART_CHARTS_DATA_BIN: ohlcvINTERFACE[]            // corresponds to data above. this will be the actual stock ticker data. possibly stringified. but possibly already parsed by now.
+  // 
+
+  // to show more than 1 charts done with dynamic component:          <Chart data={data}/>    // OHLCV data.
 }
 
 const initialState: StocksSliceState = {    
