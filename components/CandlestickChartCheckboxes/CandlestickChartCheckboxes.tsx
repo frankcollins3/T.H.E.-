@@ -5,7 +5,8 @@
     TOGGLE_CANDLESTICK_CHART_VIEW_MULTI,
     TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L,
     TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V,
-    SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC
+    SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC,
+    SET_CANDLESTICK_CHART_CURR_DATA
     } from 'redux/stocks/stocksSlice';
 
     // components and styling.
@@ -16,6 +17,7 @@
     // utility
     import {useImage} from "Contexts/Img"
     import {useStocks} from "Contexts/StocksContext"
+    import season from "utility/candlestickData"
 
     export default function CandlestickChartCheckboxes() {
         return <RENDER/>
@@ -37,6 +39,7 @@
         const CANDLESTICK_CHART_MULTI_SHOW_V = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_V);
 
         const CANDLESTICK_CHART_LAST_SELECTED_OHLC = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_LAST_SELECTED_OHLC);
+        const CANDLESTICK_CHART_CURR_DATA = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_CURR_DATA);
 
         const checkboxClick = (event:any) => {
             const target = event?.target;
@@ -122,13 +125,45 @@
             dispatch(TOGGLE_CANDLESTICK_CHART_VIEW_MULTI())
         }
 
+
+
+        const filterDataByParams = () => {
+            if (CANDLESTICK_CHART_CURR_DATA[1] === null || CANDLESTICK_CHART_CURR_DATA[1] === null) {
+                dispatch(SET_CANDLESTICK_CHART_CURR_DATA(season))
+            } else {
+                // split day from date.
+
+                let filteredData = CANDLESTICK_CHART_CURR_DATA.filter((currData) => {
+                    console.log(currData)
+                    const { date } = currData;
+                    let dayDate:any = '';
+                    let monthDate:any = ''
+                    let yearDate:any = ''
+
+                    
+                    // bypassing helper functions
+                    const dateSplit:any = date?.split('-')   // would type string|number|undefined for parseInt() but method wouldn't exist
+                    console.log('dateSplit', dateSplit)
+
+                    if (dateSplit[0]) { monthDate = dateSplit[0] }
+                    
+                    if (dateSplit[1]) { dayDate = dateSplit[1] }
+                    if (dateSplit[2]) { yearDate = dateSplit[2] }
+
+            
+
+                })
+            }
+
+        }
+
         return (
             <Container id={styles.cont}>            
 
 
             <Container id={styles.subCont1}>
             <p className={styles.checkboxText}> View </p>
-            <img onClick={singleMultiViewToggle} className={styles.singleMultiChartViewBtn} src={CANDLESTICK_CHART_VIEW_MULTI == true ? multiCheckbox : singleCheckbox}/>
+            <img onClick={singleMultiViewToggle} className={styles.singleMultiChartViewBtn} src={CANDLESTICK_CHART_VIEW_MULTI == true ? multiCheckbox : singleCheckbox} />
             {/* <button onClick={singleMultiViewToggle}>  </button> */}
             </Container>
 
@@ -150,6 +185,8 @@
 
             <input checked={CANDLESTICK_CHART_MULTI_SHOW_V === true && true} onChange={checkboxClick} id="chbx5" className={styles.chbx5} type="checkbox"/>
             <label className={styles.label5} htmlFor="chbx5"></label>
+
+            <button onClick={filterDataByParams}> date </button>
 
             </Container>
 
