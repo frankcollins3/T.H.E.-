@@ -14,6 +14,7 @@
     // import {TestHeader} from "styles/styledComponents/chartCheckbox"
 
     // utility
+    import {useImage} from "Contexts/Img"
     import {useStocks} from "Contexts/StocksContext"
 
     export default function CandlestickChartCheckboxes() {
@@ -24,11 +25,11 @@
 
         const dispatch = useDispatch()
         const { resetOHLCV } = useStocks();
+        const { singleCheckbox, multiCheckbox } = useImage();
 
         // if layout goes for multiple charts needs 
         const CANDLESTICK_CHART_VIEW_MULTI = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_VIEW_MULTI);
         
-
         const CANDLESTICK_CHART_MULTI_SHOW_O = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_O);
         const CANDLESTICK_CHART_MULTI_SHOW_H = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_H);
         const CANDLESTICK_CHART_MULTI_SHOW_L = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_L);
@@ -49,6 +50,14 @@
             }
 
             console.log('id', id)
+
+            // if volume is on but we click another line besides volume than close volume
+            if (CANDLESTICK_CHART_MULTI_SHOW_V === true) {
+                if (id !== "chbx5") {
+                    dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V())
+                }
+            }
+
             if (id === "chbx1") {
                 console.log("atleast were over here");
                 // if (CANDLESTICK_CHART_MULTI_SHOW_O === false) {
@@ -78,15 +87,22 @@
                 // }
             }
             if (id === "chbx5") {
+                    resetOHLCV();
                     dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V())
                     dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("v"))
             }
         }
         
         const singleMultiViewToggle = () => {
+
+            // think this is a race condition but technically not because the redux state always wins by this point and this triggers
+            // problem: if you are on single view with a check clicked, now click to multi view it should just keep that check
+            // at present: CHART_VIEW_MULTI === false but if you click this function resetOHLCV() invokes even though it shouldn't.
+            //          single view with single checkbox go to click to multi and it resets which it sholudn't
             if (CANDLESTICK_CHART_VIEW_MULTI === true) {
                 resetOHLCV()
             }
+
             if (CANDLESTICK_CHART_LAST_SELECTED_OHLC === "o") {
                 dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O())
             }
@@ -100,6 +116,7 @@
                 dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C())
             }
             else if (CANDLESTICK_CHART_LAST_SELECTED_OHLC === "v") {
+                resetOHLCV()
                 dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V())
             }
             dispatch(TOGGLE_CANDLESTICK_CHART_VIEW_MULTI())
@@ -108,10 +125,13 @@
         return (
             <Container id={styles.cont}>            
 
-            <Container id={styles.subCont1}>
-            <button onClick={singleMultiViewToggle} className={styles.singleMultiChartViewBtn}> { CANDLESTICK_CHART_VIEW_MULTI === true ? "single" : "multi" } </button>        
 
+            <Container id={styles.subCont1}>
+            <p className={styles.checkboxText}> View </p>
+            <img onClick={singleMultiViewToggle} className={styles.singleMultiChartViewBtn} src={CANDLESTICK_CHART_VIEW_MULTI == true ? multiCheckbox : singleCheckbox}/>
+            {/* <button onClick={singleMultiViewToggle}>  </button> */}
             </Container>
+
             {/* could just make same classes and have differentiated inline styling to handle {align-self}  */}
             <Container id={styles.subCont2}>   
 
