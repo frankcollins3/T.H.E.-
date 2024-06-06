@@ -10,7 +10,8 @@ import {
   TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H, 
   TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C, 
   TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L,
-  TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V 
+  TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V,
+  SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC
 } from 'redux/stocks/stocksSlice';
 
 // Utility
@@ -22,6 +23,7 @@ type StocksTypes = {
     resetOHLCV: () => void;
     checkboxClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
     singleMultiViewToggle: () => void;
+    setOHLCsetLastSelected: () => void;
 }
 
 const StocksDefaults: StocksTypes = {
@@ -57,6 +59,7 @@ const StocksDefaults: StocksTypes = {
     resetOHLCV: () => {},
     checkboxClick: () => {},
     singleMultiViewToggle: () => {},
+    setOHLCsetLastSelected: () => {},
 }
 
 const StocksContext = createContext<StocksTypes>(StocksDefaults);
@@ -109,7 +112,9 @@ export function StocksProvider({ children }: Props) {
     }
 
     const resetOHLCV = () => {
+        console.log("this invokes")
         Promise.all([
+            // CANDLESTICK_CHART_MULTI_SHOW_O 
             CANDLESTICK_CHART_MULTI_SHOW_O && dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O()),
             CANDLESTICK_CHART_MULTI_SHOW_H && dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H()),
             CANDLESTICK_CHART_MULTI_SHOW_L && dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L()),
@@ -117,7 +122,7 @@ export function StocksProvider({ children }: Props) {
             CANDLESTICK_CHART_MULTI_SHOW_V && dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V()),
         ]).then(() => {
             if (CANDLESTICK_CHART_VIEW_MULTI) {
-                resetOHLCV(); // Make sure this does not cause an infinite loop
+                // resetOHLCV(); // Make sure this does not cause an infinite loop
             }
         });
     }
@@ -176,12 +181,25 @@ export function StocksProvider({ children }: Props) {
 
         dispatch(TOGGLE_CANDLESTICK_CHART_VIEW_MULTI());
     }
+
+    const setOHLCsetLastSelected = (char:string) => {
+        // state setting so void but have to return value. 
+        if (char === 'o') { Promise.all([dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O()), dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("o"))]) }
+        if (char === 'h') { Promise.all([dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H()), dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("h"))]) }
+        if (char === 'l') { Promise.all([dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L()), dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("l"))]) }
+        if (char === 'c') { Promise.all([dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C()), dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("c"))]) }
+        return CANDLESTICK_CHART_LAST_SELECTED_OHLC
+    }
+
+    // dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O())
+    //                 dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("o"))
             
     const value = {        
         APPLE,
         resetOHLCV,
         checkboxClick,
-        singleMultiViewToggle
+        singleMultiViewToggle,
+        setOHLCsetLastSelected
     }
 
     return (
