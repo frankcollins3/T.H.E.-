@@ -24,14 +24,16 @@
     // changing UI from 2 L-chkbox to 1: single|multi.. if user checked multiple lines & toggles to single chart only:  keep last selected line
     CANDLESTICK_CHART_LAST_SELECTED_OHLC: string,
     CANDLESTICK_CHART_CURR_DATA: candlestickARRAYTYPE // array of single interfaces { O H L C V:number }
+    
+    // to show more than 1 charts done with dynamic component:          <Chart data={data}/>    // OHLCV data.
     CANDLESTICK_CHART_CURR_DATA_BIN: candlestickARRAYTYPE[] // array of those arrays to i.e -> compare apple against microsoft
     CANDLESTICK_CHART_TODAYS_DATE: any; 
     CANDLESTICK_CHART_FILTER_START_DATE: string;
-    CANDLESTICK_CHART_FILTER_END_DATE: string;
-    
+    CANDLESTICK_CHART_FILTER_END_DATE: string; 
+    CANDLESTICK_CHART_SHOW_FILTER: boolean;
+    CANDLESTICK_CHART_COMPANY_LOGO: string;
 
-
-    // to show more than 1 charts done with dynamic component:          <Chart data={data}/>    // OHLCV data.
+    // CANDLESTICK_CHART_FILTER_ON: boolean
   }
 
   const initialState: StocksSliceState = {    
@@ -84,6 +86,9 @@
     CANDLESTICK_CHART_TODAYS_DATE: new Date().toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' }).replace(/\//g, '-'),
     CANDLESTICK_CHART_FILTER_START_DATE: '',
     CANDLESTICK_CHART_FILTER_END_DATE: '',
+    CANDLESTICK_CHART_SHOW_FILTER: false,
+    CANDLESTICK_CHART_COMPANY_LOGO: '',
+    // CANDLESTICK_CHART_FILTER_ON: false,
   }
                                           
   const stocksSlice = createSlice({
@@ -114,7 +119,9 @@
       // SET_CANDLESTICK_CHART_TODAYS_DATE: (state, action) => { state.CANDLESTICK_CHART_TODAYS_DATE = action.payload },
       SET_CANDLESTICK_CHART_FILTER_START_DATE: (state, action) => { state.CANDLESTICK_CHART_FILTER_START_DATE = action.payload },
       SET_CANDLESTICK_CHART_FILTER_END_DATE: (state, action) => { state.CANDLESTICK_CHART_FILTER_END_DATE = action.payload },
-      CLEAR_CANDLESTICK_CHART_FILTER: (state, action) => { state.CANDLESTICK_CHART_FILTER_START_DATE = '', state.CANDLESTICK_CHART_FILTER_END_DATE = '' },      
+      CLEAR_CANDLESTICK_CHART_FILTER: (state) => { state.CANDLESTICK_CHART_FILTER_START_DATE = '', state.CANDLESTICK_CHART_FILTER_END_DATE = '' },      
+      TOGGLE_CANDLESTICK_CHART_SHOW_FILTER: (state) => { state.CANDLESTICK_CHART_SHOW_FILTER = !state.CANDLESTICK_CHART_SHOW_FILTER },      
+      SET_CANDLESTICK_CHART_COMPANY_LOGO: (state, action) => { state.CANDLESTICK_CHART_COMPANY_LOGO = action.payload },
     },
   });
 
@@ -126,7 +133,12 @@
 
       TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V,
       SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC, SET_CANDLESTICK_CHART_CURR_DATA, SET_CANDLESTICK_CHART_CURR_DATA_BIN,
-      SET_CANDLESTICK_CHART_FILTER_START_DATE, SET_CANDLESTICK_CHART_FILTER_END_DATE, CLEAR_CANDLESTICK_CHART_FILTER
+      SET_CANDLESTICK_CHART_FILTER_START_DATE, SET_CANDLESTICK_CHART_FILTER_END_DATE, TOGGLE_CANDLESTICK_CHART_SHOW_FILTER,
+      CLEAR_CANDLESTICK_CHART_FILTER,
+      SET_CANDLESTICK_CHART_COMPANY_LOGO
+
+// <DynamicLineChart would use that state as inline-styled <> element props to put company logo on calendar (not need as params since redux) 
+
       // SET_CANDLESTICK_CHART_TODAYS_DATE
 
   } = stocksSlice.actions;
