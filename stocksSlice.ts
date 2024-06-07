@@ -87,8 +87,7 @@
     CANDLESTICK_CHART_FILTER_START_DATE: '',
     CANDLESTICK_CHART_FILTER_END_DATE: '',
     CANDLESTICK_CHART_SHOW_FILTER: false,
-    CANDLESTICK_CHART_COMPANY_LOGO: '',
-    // CANDLESTICK_CHART_FILTER_ON: false,
+    CANDLESTICK_CHART_COMPANY_LOGO: 'apple',    // defaults to apple.
   }
                                           
   const stocksSlice = createSlice({
