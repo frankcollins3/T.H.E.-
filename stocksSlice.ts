@@ -40,14 +40,23 @@
 
     // ID:         number;    // probably no id 
     KR_MKT_CAP: string;
+    KR_MKT_CAP_IS_CLICKED: boolean;
     KR_SHARES: string;
+    KR_SHARES_IS_CLICKED: boolean;
     KR_PE: string;
+    KR_PE_IS_CLICKED: boolean;
     KR_PS: string;
+    KR_PS_IS_CLICKED: boolean;
     KR_PB: string;
+    KR_PB_IS_CLICKED: boolean;
     KR_PEG: string;
+    KR_PEG_IS_CLICKED: boolean;
     KR_CURRENT: string;
+    KR_CURRENT_IS_CLICKED: boolean;
     KR_DE: string;
+    KR_DE_IS_CLICKED: boolean;
     KR_EPS: string
+    KR_EPS_IS_CLICKED: boolean;
 
     // CANDLESTICK_CHART_FILTER_ON: boolean
   }
@@ -110,14 +119,23 @@
     CANDLESTICK_CHART_SHOW_ANALYST_INFO: false,
 
     KR_MKT_CAP: "",
+    KR_MKT_CAP_IS_CLICKED: false,
     KR_SHARES: "",
+    KR_SHARES_IS_CLICKED: false,
     KR_PE: "",
+    KR_PE_IS_CLICKED: false,
     KR_PS: "",
+    KR_PS_IS_CLICKED: false,
     KR_PB: "",
+    KR_PB_IS_CLICKED: false,
     KR_PEG: "",
+    KR_PEG_IS_CLICKED: false,
     KR_CURRENT: "",
+    KR_CURRENT_IS_CLICKED: false,
     KR_DE: "",
-    KR_EPS: ""
+    KR_DE_IS_CLICKED: false,
+    KR_EPS: "",
+    KR_EPS_IS_CLICKED: false,
   }
                                           
   const stocksSlice = createSlice({
@@ -156,14 +174,23 @@
 
       // conventional @redux/toolkit would have it's own keyratios slice but redux-connect single store. just keeping it one for now. 
       SET_KR_MKT_CAP: (state, action) => { state.KR_MKT_CAP = action.payload },
+      TOGGLE_KR_MKT_CAP_IS_CLICKED: (state) => { state.KR_MKT_CAP_IS_CLICKED = !state.KR_MKT_CAP_IS_CLICKED },
       SET_KR_SHARES: (state, action) => { state.KR_SHARES = action.payload },
+      TOGGLE_KR_SHARES_IS_CLICKED: (state) => { state.KR_SHARES_IS_CLICKED = !state.KR_SHARES_IS_CLICKED },
       SET_KR_PE: (state, action) => { state.KR_PE = action.payload },
+      TOGGLE_KR_PE_IS_CLICKED: (state) => { state.KR_PE_IS_CLICKED = !state.KR_PE_IS_CLICKED },
       SET_KR_PS: (state, action) => { state.KR_PS = action.payload },
+      TOGGLE_KR_PS_IS_CLICKED: (state) => { state.KR_PS_IS_CLICKED = !state.KR_PS_IS_CLICKED },
       SET_KR_PB: (state, action) => { state.KR_PB = action.payload },
+      TOGGLE_KR_PB_IS_CLICKED: (state) => { state.KR_PB_IS_CLICKED = !state.KR_PB_IS_CLICKED },
       SET_KR_PEG: (state, action) => { state.KR_PEG = action.payload },
+      TOGGLE_KR_PEG_IS_CLICKED: (state) => { state.KR_PEG_IS_CLICKED = !state.KR_PEG_IS_CLICKED },
       SET_KR_CURRENT: (state, action) => { state.KR_CURRENT = action.payload },
+      TOGGLE_KR_CURRENT_IS_CLICKED: (state) => { state.KR_CURRENT_IS_CLICKED = !state.KR_CURRENT_IS_CLICKED },
       SET_KR_DE: (state, action) => { state.KR_DE= action.payload },
+      TOGGLE_KR_DE_IS_CLICKED: (state) => { state.KR_DE_IS_CLICKED = !state.KR_DE_IS_CLICKED },
       SET_KR_EPS: (state, action) => { state.KR_EPS = action.payload },
+      TOGGLE_KR_EPS_IS_CLICKED: (state) => { state.KR_EPS_IS_CLICKED = !state.KR_EPS_IS_CLICKED },
     },
   });
 
@@ -180,7 +207,10 @@
       CLEAR_CANDLESTICK_CHART_FILTER, TOGGLE_CANDLESTICK_CHART_SHOW_KEYRATIOS, TOGGLE_CANDLESTICK_CHART_SHOW_ANALYST_INFO,
       SET_CANDLESTICK_CHART_COMPANY_LOGO,
 
-      SET_KR_MKT_CAP, SET_KR_SHARES, SET_KR_PE, SET_KR_PS, SET_KR_PB, SET_KR_PEG, SET_KR_CURRENT, SET_KR_DE, SET_KR_EPS
+      SET_KR_MKT_CAP, SET_KR_SHARES, SET_KR_PE, SET_KR_PS, SET_KR_PB, SET_KR_PEG, SET_KR_CURRENT, SET_KR_DE, SET_KR_EPS,
+      TOGGLE_KR_MKT_CAP_IS_CLICKED, TOGGLE_KR_SHARES_IS_CLICKED, 
+      TOGGLE_KR_PE_IS_CLICKED, TOGGLE_KR_PS_IS_CLICKED, TOGGLE_KR_PB_IS_CLICKED, TOGGLE_KR_PEG_IS_CLICKED, 
+      TOGGLE_KR_DE_IS_CLICKED, TOGGLE_KR_CURRENT_IS_CLICKED, TOGGLE_KR_EPS_IS_CLICKED
 // <DynamicLineChart would use that state as inline-styled <> element props to put company logo on calendar (not need as params since redux) 
 
   } = stocksSlice.actions;
