@@ -7,6 +7,7 @@ type imgContextType = {
     hlocView: string;
     calendar: string;
     ADazure: string;
+    appleLogo: string;
 }
 
 // define values which will remain static
@@ -16,6 +17,7 @@ const imgDefaults: imgContextType = {
     hlocView: 'img/hlocView.png',
     calendar: 'img/calendar.png',
     ADazure: 'img/Adazure.png',
+    appleLogo: 'img/appleLogo.png',
 };
 
 // createContext
@@ -36,13 +38,15 @@ export function ImgProvider({ children }: Props) {
     const [hlocView, sethlocView] = useState<string>(`img/hlocView.png`);      
     const [calendar, setCalendar] = useState<string>(`img/calendar.png`);      
     const [ADazure, setAdazure] = useState<string>(`img/ADazure.png`);      
+    const [appleLogo, setappleLogo] = useState<string>(`img/appleLogo.png`);      
 
     const value = {
         singleCheckbox,
         multiCheckbox,
         hlocView,
         calendar,
-        ADazure
+        ADazure,
+        appleLogo
     };
 
     return (
