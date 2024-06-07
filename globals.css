@@ -117,7 +117,7 @@
 
     /* react calendar styling haha */
 
-    /* react-calendar: The main container of the calendar.
+  /* react-calendar: The main container of the calendar.
   react-calendar__navigation: The navigation bar at the top of the calendar, containing the month/year switcher and navigation buttons.
   react-calendar__month-view__weekdays: The container for the weekdays row.
   react-calendar__month-view__days: The container for the days of the month.
@@ -134,6 +134,7 @@
     font-family: "Lato", Helvetica, sans-serif;
     line-height: 1.125em;
     width: 300px;
+    height: fit-content;
     border-radius: 4px; 
     /* color: rgb(100,88,88); */
     /* width: 200px; */
@@ -222,11 +223,18 @@
   }
 
   @keyframes shhh {
+    /* if we had @mixin and could know which element this came from we could distinguish between today__now or non-today-clicked-days */
     /* wow! */
     33% { opacity: 0.85%; box-shadow: 40px 40px 40px rgb(100, 88, 88); }
     66% { opacity: 0.45%; }
     99% { opacity: 0.15%; }
   }
+  
+  @keyframes shhhgold { 
+    33% { opacity: 0.85%; box-shadow: 40px 40px 40px #fcc41c; }
+    66% { opacity: 0.45%; }
+    99% { opacity: 0.15%; }    
+  } 
 
   .react-calendar__tile:enabled:focus {
     background-color: #a7a7a7;
@@ -234,6 +242,17 @@
   }
 
   .react-calendar__tile--now {
+    /* considered simple sun  */
+    content: '';
+    background-image: url('/img/newIconFromMyOtherApp.png');
+    background-size: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+
     /* background-color: rgb(100, 88, 88); */
     /* color: transparent;
     font-weight: bolder;
@@ -245,12 +264,24 @@
     animation-name: helloWorld;
     animation-duration: 3s;
     animation-iteration-count: 1;
+    color: transparent;
+    /* color: whitesmoke;  */
+    /* font-weight: lighter; */
+  }
+  /*          :enabled ?        this made me wonder whether devs can make their own pseudo-classes?  */
+  .react-calendar__tile--now:enabled:focus { 
+    background-color: transparent; 
+    animation-name: shhhgold;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    /* shhhgold */
   }
 
-  .rect-calendar__tile--now:hover {
+  .react-calendar__tile--now:hover {
     animation-name: shhh;
-    animation-duration: 3s;
+    animation-duration: 1s;
     animation-iteration-count: 1;
+
   }
 
   @keyframes helloWorld {
