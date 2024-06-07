@@ -8,6 +8,8 @@ type imgContextType = {
     calendar: string;
     ADazure: string;
     appleLogo: string;
+    keyIcon: string;
+    commonwealth: string;
 }
 
 // define values which will remain static
@@ -18,6 +20,8 @@ const imgDefaults: imgContextType = {
     calendar: 'img/calendar.png',
     ADazure: 'img/Adazure.png',
     appleLogo: 'img/appleLogo.png',
+    keyIcon: 'img/key.png',
+    commonwealth: 'img/commonwealth.png',
 };
 
 // createContext
@@ -39,6 +43,8 @@ export function ImgProvider({ children }: Props) {
     const [calendar, setCalendar] = useState<string>(`img/calendar.png`);      
     const [ADazure, setAdazure] = useState<string>(`img/ADazure.png`);      
     const [appleLogo, setappleLogo] = useState<string>(`img/appleLogo.png`);      
+    const [keyIcon, setkeyIcon] = useState<string>(`img/key.png`);      
+    const [commonwealth, setcommonwealth] = useState<string>(`img/commonwealth.png`);      
 
     const value = {
         singleCheckbox,
@@ -46,7 +52,9 @@ export function ImgProvider({ children }: Props) {
         hlocView,
         calendar,
         ADazure,
-        appleLogo
+        appleLogo,
+        keyIcon,
+        commonwealth
     };
 
     return (
