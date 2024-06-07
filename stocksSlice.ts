@@ -12,7 +12,7 @@
     CANDLESTICK_CHART_VIEW_HL_OC: boolean;
 
     // selection being: OHLCV.      multi selection splits between showing as 2 lines on linechart:   Open,Close | High,Low
-    CANDLESTICK_CHART_SINGLE_SELECTION: string;   // 'o, h, l, c, v' candlestick
+    CANDLESTICK_CHART_SINGLE_SELECTION: "",
     CANDLESTICK_CHART_MULTI_SELECTION: string; // 'oc', 'hl',  || 'all'
 
     CANDLESTICK_CHART_MULTI_SHOW_O: boolean; 
@@ -36,7 +36,18 @@
     // bonus if one could use AI to show where in the chart some of the key ratios come from. just wishlisting.
     CANDLESTICK_CHART_SHOW_FILTER: boolean;
     CANDLESTICK_CHART_SHOW_KEYRATIOS: boolean;
-    CANDLESTICK_CHART_SHOW_ANALYST_INFO: boolean;
+    CANDLESTICK_CHART_SHOW_ANALYST_INFO: boolean;           
+
+    // ID:         number;    // probably no id 
+    KR_MKT_CAP: string;
+    KR_SHARES: string;
+    KR_PE: string;
+    KR_PS: string;
+    KR_PB: string;
+    KR_PEG: string;
+    KR_CURRENT: string;
+    KR_DE: string;
+    KR_EPS: string
 
     // CANDLESTICK_CHART_FILTER_ON: boolean
   }
@@ -45,14 +56,14 @@
     APPLE:{
         keyRatios: {
             id: 0,
-            marketCap: 0,
-            sharesOutstanding: 0,
-            peRatio: 0,
-            psRatio: 0,
-            pbRatio: 0,
-            pegRatio: 0,
-            currentRatio: 0,
-            debtEquityRatio: 0,
+            MktCap: 0,
+            Shares: 0,
+            PE: 0,
+            PS: 0,
+            PB: 0,
+            PEG: 0,
+            Current: 0,
+            DE: 0,
             EPS: 0
           },
           candleStick: { 
@@ -96,7 +107,17 @@
     
     CANDLESTICK_CHART_SHOW_FILTER: false,
     CANDLESTICK_CHART_SHOW_KEYRATIOS: false,
-    CANDLESTICK_CHART_SHOW_ANALYST_INFO: false
+    CANDLESTICK_CHART_SHOW_ANALYST_INFO: false,
+
+    KR_MKT_CAP: "",
+    KR_SHARES: "",
+    KR_PE: "",
+    KR_PS: "",
+    KR_PB: "",
+    KR_PEG: "",
+    KR_CURRENT: "",
+    KR_DE: "",
+    KR_EPS: ""
   }
                                           
   const stocksSlice = createSlice({
@@ -128,10 +149,21 @@
       SET_CANDLESTICK_CHART_FILTER_START_DATE: (state, action) => { state.CANDLESTICK_CHART_FILTER_START_DATE = action.payload },
       SET_CANDLESTICK_CHART_FILTER_END_DATE: (state, action) => { state.CANDLESTICK_CHART_FILTER_END_DATE = action.payload },
       TOGGLE_CANDLESTICK_CHART_SHOW_FILTER: (state) => { state.CANDLESTICK_CHART_SHOW_FILTER = !state.CANDLESTICK_CHART_SHOW_FILTER },      
-      CLEAR_CANDLESTICK_CHART_FILTER: (state) => { state.CANDLESTICK_CHART_FILTER_START_DATE = '', state.CANDLESTICK_CHART_FILTER_END_DATE = '' },      
+    CLEAR_CANDLESTICK_CHART_FILTER: (state) => { state.CANDLESTICK_CHART_FILTER_START_DATE = '', state.CANDLESTICK_CHART_FILTER_END_DATE = '' },      
       TOGGLE_CANDLESTICK_CHART_SHOW_KEYRATIOS: (state) => { state.CANDLESTICK_CHART_SHOW_KEYRATIOS = !state.CANDLESTICK_CHART_SHOW_KEYRATIOS },
       TOGGLE_CANDLESTICK_CHART_SHOW_ANALYST_INFO: (state) => { state.CANDLESTICK_CHART_SHOW_ANALYST_INFO = !state.CANDLESTICK_CHART_SHOW_ANALYST_INFO },
       SET_CANDLESTICK_CHART_COMPANY_LOGO: (state, action) => { state.CANDLESTICK_CHART_COMPANY_LOGO = action.payload },
+
+      // conventional @redux/toolkit would have it's own keyratios slice but redux-connect single store. just keeping it one for now. 
+      SET_KR_MKT_CAP: (state, action) => { state.KR_MKT_CAP = action.payload },
+      SET_KR_SHARES: (state, action) => { state.KR_SHARES = action.payload },
+      SET_KR_PE: (state, action) => { state.KR_PE = action.payload },
+      SET_KR_PS: (state, action) => { state.KR_PS = action.payload },
+      SET_KR_PB: (state, action) => { state.KR_PB = action.payload },
+      SET_KR_PEG: (state, action) => { state.KR_PEG = action.payload },
+      SET_KR_CURRENT: (state, action) => { state.KR_CURRENT = action.payload },
+      SET_KR_DE: (state, action) => { state.KR_DE= action.payload },
+      SET_KR_EPS: (state, action) => { state.KR_EPS = action.payload },
     },
   });
 
@@ -145,13 +177,11 @@
       SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC, SET_CANDLESTICK_CHART_CURR_DATA, SET_CANDLESTICK_CHART_CURR_DATA_BIN,
       SET_CANDLESTICK_CHART_FILTER_START_DATE, SET_CANDLESTICK_CHART_FILTER_END_DATE, TOGGLE_CANDLESTICK_CHART_SHOW_FILTER,
 
-      // filter === calendar          show key ratios                           show analyst estimates.
       CLEAR_CANDLESTICK_CHART_FILTER, TOGGLE_CANDLESTICK_CHART_SHOW_KEYRATIOS, TOGGLE_CANDLESTICK_CHART_SHOW_ANALYST_INFO,
-      SET_CANDLESTICK_CHART_COMPANY_LOGO
+      SET_CANDLESTICK_CHART_COMPANY_LOGO,
 
+      SET_KR_MKT_CAP, SET_KR_SHARES, SET_KR_PE, SET_KR_PS, SET_KR_PB, SET_KR_PEG, SET_KR_CURRENT, SET_KR_DE, SET_KR_EPS
 // <DynamicLineChart would use that state as inline-styled <> element props to put company logo on calendar (not need as params since redux) 
-
-      // SET_CANDLESTICK_CHART_TODAYS_DATE
 
   } = stocksSlice.actions;
 
