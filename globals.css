@@ -135,6 +135,7 @@
     line-height: 1.125em;
     width: 300px;
     border-radius: 4px; 
+    /* color: rgb(100,88,88); */
     /* width: 200px; */
   }
 
@@ -145,7 +146,10 @@
     align-items: center;
     height: 25px;
     margin-bottom: 1em;
-    box-shadow: 4px 4px 4px rgb(100,88,88);
+    border-bottom: none;
+    border-bottom-left-radius: 6px;
+    /* border-bottom-right-radius: 6px; */
+    /* box-shadow: 4px 4px 4px rgb(100,88,88); */
     color: rgb(100,88,88);
     /* height:  */
   }
@@ -154,8 +158,8 @@
     min-width: 44px;
     background: none;
     border: none;
-    color: #6f48eb;
     padding: 8px;
+    color: rgb(100,88,88);
     cursor: pointer;
   }
 
