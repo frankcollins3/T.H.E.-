@@ -28,7 +28,7 @@
     #MainIntro {
       display: flex;
       flex-direction: column;
-      justify-content: center;  /* will be start */
+      justify-content: flex-start;  /* will be start */
       align-items: center;
       min-height: 100vh;
       min-width: 100vw;
@@ -103,8 +103,16 @@
     #candlestickChart {
       font-family: cursive;
       /* border: 1px solid rgba(0, 0, 0, 0.357);      */
-      height: 600px;
+      /* height: 600px; */
       border-radius: 6px;
+
+      background-image: url('/img/newIconFromMyOtherApp.png');
+      background-size: 10%;
+      /* background-repeat: no-repeat; */
+      background-position-x: 17.5%;
+      background-position-y: 80%;
+      background-repeat: no-repeat;
+
       /* box-shadow: 2px 2px 2px moccasin; */
     }
 
@@ -133,9 +141,13 @@
     border: 2px solid rgb(100, 88, 88);
     font-family: "Lato", Helvetica, sans-serif;
     line-height: 1.125em;
-    width: 300px;
+    height: 400px;
+    width: 400px;
     height: fit-content;
     border-radius: 4px; 
+    margin-left: 3em;
+    position: relative;
+    top: -30px; 
     /* color: rgb(100,88,88); */
     /* width: 200px; */
   }
