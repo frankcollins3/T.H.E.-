@@ -23,7 +23,9 @@ interface StocksSliceState {
 
   // changing UI from 2 L-chkbox to 1: single|multi.. if user checked multiple lines & toggles to single chart only:  keep last selected line
   CANDLESTICK_CHART_LAST_SELECTED_OHLC: string,
-  CANDLESTICK_CHART_CURR_DATA: candlestickARRAYTYPE
+  CANDLESTICK_CHART_CURR_DATA: candlestickARRAYTYPE // array of single interfaces { O H L C V:number }
+  CANDLESTICK_CHART_CURR_DATA_BIN: candlestickARRAYTYPE[] // array of those arrays to i.e -> compare apple against microsoft
+  CANDLESTICK_CHART_TODAYS_DATE: string; 
 
                   //  * * * * * * * possibly extending to multiple charts. 
   // CANDLESTICK_CHART_SHOW_CHARTS_BIN: boolean[]  //    [false, true, false, false] goes by index === true & renders chart. params: ohlcv data which index corresponding [i]->[i] w. this array
@@ -78,7 +80,9 @@ const initialState: StocksSliceState = {
   // might be shown separately from OHLC, because it doesn't share the same info the other stocks represent.
   CANDLESTICK_CHART_MULTI_SHOW_V: false,
   CANDLESTICK_CHART_LAST_SELECTED_OHLC: '',
-  CANDLESTICK_CHART_CURR_DATA: [{ id: null, open: 0, close: 0, high: 0, low: 0, volume: 0, date: '' }]
+  CANDLESTICK_CHART_CURR_DATA: [{ id: null, open: 0, close: 0, high: 0, low: 0, volume: 0, date: '' }],
+  CANDLESTICK_CHART_CURR_DATA_BIN: [],
+  CANDLESTICK_CHART_TODAYS_DATE: new Date().getDay() 
 }
                                         
 const stocksSlice = createSlice({
@@ -105,6 +109,7 @@ const stocksSlice = createSlice({
     TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V: (state) => { state.CANDLESTICK_CHART_MULTI_SHOW_V = !state.CANDLESTICK_CHART_MULTI_SHOW_V },      
     SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC: (state, action) => { state.CANDLESTICK_CHART_LAST_SELECTED_OHLC = action.payload },
     SET_CANDLESTICK_CHART_CURR_DATA: (state, action) => { state.CANDLESTICK_CHART_CURR_DATA = action.payload },
+    SET_CANDLESTICK_CHART_CURR_DATA_BIN: (state, action) => { state.CANDLESTICK_CHART_CURR_DATA_BIN = action.payload },
   },
 });
 
@@ -115,7 +120,7 @@ export const
     SET_CANDLESTICK_CHART_SINGLE_SELECTION, SET_CANDLESTICK_CHART_MULTI_SELECTION,
 
     TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V,
-    SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC, SET_CANDLESTICK_CHART_CURR_DATA
+    SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC, SET_CANDLESTICK_CHART_CURR_DATA, SET_CANDLESTICK_CHART_CURR_DATA_BIN
 
 } = stocksSlice.actions;
 
