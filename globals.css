@@ -197,10 +197,12 @@
     animation-name: shhh;
     animation-duration: 3s;
     animation-iteration-count: infinite;
+    
   }
 
   @keyframes shhh {
-    33% { opacity: 0.85%; }
+    /* wow! */
+    33% { opacity: 0.85%; box-shadow: 40px 40px 40px rgb(100, 88, 88); }
     66% { opacity: 0.45%; }
     99% { opacity: 0.15%; }
   }
@@ -219,4 +221,13 @@
     background-size: cover; 
     background-repeat: no-repeat; */
     font-size: 25px; 
+    animation-name: helloWorld;
+    animation-duration: 3s;
+    animatino-iteration-count: 
+  }
+
+  @keyframes helloWorld {
+    33% { opacity: 0; }
+    66% { opacity: 0.45%; }
+    100% { opacity: 100%; }
   }
