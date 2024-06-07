@@ -132,45 +132,22 @@
       }
         
       const test = () => {
-        // let reactCalendarJQ = $('.react-calendar')
-        // let childrenOfTime = reactCalendarJQ.children()
-        // if (!childrenOfTime[1]) {
-        //   return;
-        // }
-        // let viewContainer = childrenOfTime[1]
-        // let containerChildren = $(viewContainer).children()
-        // if (!containerChildren[0]) {
-        //   return;
-        // }
-        // console.log('reactCalendarJQ', reactCalendarJQ)
-        // console.log('childrenOfTime', childrenOfTime)
-        // console.log('viewContainer', viewContainer)
-        // console.log('containerChildren', containerChildren)
-        // const daysOfMonth = $(containerChildren[0]).children()
-        // console.log('daysOfMonth', daysOfMonth)
+        let childrenOfTime = $('.react-calendar__month-view__days').children()        
 
-        let childrenOfTime = $('.react-calendar__month-view__days').children()
-        // console.log('childrenOfTime', childrenOfTime)
-        // console.log('type', typeof childrenOfTime)
-        // console.log('length', childrenOfTime?.length)
 
         $(childrenOfTime).each((index, day) => {
-        // children found! for the filter: this element targeting is how to highlight the days between & including: start date, end date        
 
         // if (index < 20) {
           console.log('day', day)
           console.log('textContent', day.textContent)
         // }
-
+          // holding this thought
           if (day?.textContent === CANDLESTICK_CHART_FILTER_START_DATE) {
               console.log("we are in this block here now!");
               $(day).css('color', 'orange')
           }
 
-        })
-
-        // console.log('start date', CANDLESTICK_CHART_FILTER_START_DATE)
-        // console.log('end date', CANDLESTICK_CHART_FILTER_END_DATE)
+        })        
       }
 
     useEffect( () => { 
@@ -178,12 +155,15 @@
     [])
 
       return (
+
         
         <Container
-         style={{ marginLeft: CANDLESTICK_CHART_SHOW_FILTER === false ? '-60px' : '0px' }}
-         id="MainIntro">      
+        style={{ marginLeft: CANDLESTICK_CHART_SHOW_FILTER === false ? '-60px' : '0px' }}
+        id="MainIntro">      
         {/* <Container id="introMain">       */}
 
+        <img id={styles.ADazure} src={ADazure}/>
+        
         {/* <div className="ghost"> empty </div> */}
 
         {/* {renderLineChart} */}
@@ -244,3 +224,4 @@
       }
     }      
   }
+s
