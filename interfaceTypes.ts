@@ -12,14 +12,14 @@
 
 export interface keyRatiosINTERFACE {
     id: string,
-    marketCap: string | null
-    sharesOutstanding: string,
-    peRatio: string,
-    psRatio: string,
-    pbRatio: string,
-    pegRatio: string,
-    currentRatio: string,
-    debtEquityRatio: string,
+    MktCap: string | null
+    Shares: string,
+    PE: string,
+    PS: string,
+    PG: string,
+    PEG: string,
+    current: string,
+    DE: string,
     EPS: string,
 }
 
