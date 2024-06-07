@@ -1,203 +1,222 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,100&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Moon+Dance&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@600&display=swap');
-  
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-  background-color: rgba(255, 255, 255, 0.922);
-  /* background-color: #FAF0E6; */
-  /* #F8F8FF; #FFFAF0; */
-}
-
-  .ghost {
-    opacity: 0.0;
-  }
-
-  #introMain {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 100vh;
-    min-width: 100vw;
-    overflow: hidden;
-    box-sizing: border-box;        
-  }
-
-  #MainIntro {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;  /* will be start */
-    align-items: center;
-    min-height: 100vh;
-    min-width: 100vw;
+  @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
     
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    background-color: rgba(255, 255, 255, 0.922);
+    /* background-color: #FAF0E6; */
+    /* #F8F8FF; #FFFAF0; */
   }
 
-  #intro-row-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;    
+    .ghost {
+      opacity: 0.0;
+    }
+
+    #introMain {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 100vh;
+      min-width: 100vw;
+      overflow: hidden;
+      box-sizing: border-box;        
+    }
+
+    #MainIntro {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;  /* will be start */
+      align-items: center;
+      min-height: 100vh;
+      min-width: 100vw;
+      
+    }
+
+    #intro-row-main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;    
+      
+    }  
+    #introFooter {
+      background-color: #9a7c5e;    
+      min-height: 10vh;
+      min-width: 100vw;    
+
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-;
+      flex-direction: row;
+      
+      background-image: url('/dojo-img/shuriken.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    #footerTabs {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #footerOrigamiSwan {
+      height: 85px;
+      width: 85px;
+      align-self: center;
+      position: relative;
+      left: 5px; 
+    }
+
+    #footerShuriken {
+      height: 15px;
+      width: 15px;
+      align-self: center;
+      position: relative;
+      right: 5px; 
+    }
+
+    .introFooterText {
+      font-family: Josefin Sans;
+      font-weight: bolder;
+      margin-left: 0.5em; 
+      margin-right: 0.5em; 
+      font-size: 18px; 
+    }
+
+    .introFooterText:hover { 
+      cursor: pointer;
+
+    }
+
+    #loginSignupMsg {
+      color: #351e0e;
+      font-size: 18px;
+    }
+
+    .halfPint { transform: scale(0.5); }
+
+    #candlestickChart {
+      font-family: cursive;
+      /* border: 1px solid rgba(0, 0, 0, 0.357);      */
+      height: 600px;
+      border-radius: 6px;
+      /* box-shadow: 2px 2px 2px moccasin; */
+    }
+
+    /* can only syle the linechart */
+    /* #tipbox { border-radius: 50%; color: purple; } */
     
-  }  
-  #introFooter {
-    background-color: #9a7c5e;    
-    min-height: 10vh;
-    min-width: 100vw;    
+    .line {
+      border: 2px solid #dbcfdf;    
+    }
 
+    /* react calendar styling haha */
+
+    /* react-calendar: The main container of the calendar.
+  react-calendar__navigation: The navigation bar at the top of the calendar, containing the month/year switcher and navigation buttons.
+  react-calendar__month-view__weekdays: The container for the weekdays row.
+  react-calendar__month-view__days: The container for the days of the month.
+  react-calendar__tile: A single day tile.
+  react-calendar__tile--active: The currently selected day tile.
+  react-calendar__tile--now: The tile for the current day.
+  react-calendar__tile--range: The tiles within a selected date range.
+  react-calendar__tile--rangeStart: The start of a selected date range.
+  react-calendar__tile--rangeEnd: The end of a selected date range. */
+
+  /* Main calendar container */
+  .react-calendar {
+    border: 2px solid rgb(100, 88, 88);
+    font-family: "Lato", Helvetica, sans-serif;
+    line-height: 1.125em;
+    width: 300px;
+    border-radius: 4px; 
+
+    /* width: 200px; */
+  }
+
+  /* Navigation bar */
+  .react-calendar__navigation {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-;
-    flex-direction: row;
-    
-    background-image: url('/dojo-img/shuriken.png');
-    background-size: cover;
-    background-repeat: no-repeat;
+    height: 44px;
+    margin-bottom: 1em;
   }
 
-  #footerTabs {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #footerOrigamiSwan {
-    height: 85px;
-    width: 85px;
-    align-self: center;
-    position: relative;
-    left: 5px; 
-  }
-
-  #footerShuriken {
-    height: 15px;
-    width: 15px;
-    align-self: center;
-    position: relative;
-    right: 5px; 
-  }
-
-  .introFooterText {
-    font-family: Josefin Sans;
-    font-weight: bolder;
-    margin-left: 0.5em; 
-    margin-right: 0.5em; 
-    font-size: 18px; 
-  }
-
-  .introFooterText:hover { 
+  .react-calendar__navigation button {
+    min-width: 44px;
+    background: none;
+    border: none;
+    color: #6f48eb;
+    padding: 8px;
     cursor: pointer;
-
-   }
-
-   #loginSignupMsg {
-    color: #351e0e;
-    font-size: 18px;
-   }
-
-   .halfPint { transform: scale(0.5); }
-
-   #candlestickChart {
-     font-family: cursive;
-     /* border: 1px solid rgba(0, 0, 0, 0.357);      */
-     height: 600px;
-     border-radius: 6px;
-     /* box-shadow: 2px 2px 2px moccasin; */
   }
 
-  /* can only syle the linechart */
-  /* #tipbox { border-radius: 50%; color: purple; } */
-  
-  .line {
-    border: 2px solid #dbcfdf;    
-   }
+  .react-calendar__navigation button:disabled {
+    background-color: #f0f0f0;
+    cursor: default;
+  }
 
-   /* react calendar styling haha */
+  .react-calendar__navigation button:enabled:hover,
+  .react-calendar__navigation button:enabled:focus {
+    background-color: #e6e6e6;
+  }
 
-   /* react-calendar: The main container of the calendar.
-react-calendar__navigation: The navigation bar at the top of the calendar, containing the month/year switcher and navigation buttons.
-react-calendar__month-view__weekdays: The container for the weekdays row.
-react-calendar__month-view__days: The container for the days of the month.
-react-calendar__tile: A single day tile.
-react-calendar__tile--active: The currently selected day tile.
-react-calendar__tile--now: The tile for the current day.
-react-calendar__tile--range: The tiles within a selected date range.
-react-calendar__tile--rangeStart: The start of a selected date range.
-react-calendar__tile--rangeEnd: The end of a selected date range. */
+  /* Weekday labels */
+  .react-calendar__month-view__weekdays {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.75em;
+    color: #6f48eb;
+    /* border-radiu */
+  }
 
-/* Main calendar container */
-.react-calendar {
-  /* border: 2px solid rgb(100, 88, 88);
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.125em;
-  width: 300px;
-  border-radius: 4px; */
+  /* Day tiles */
+  .react-calendar__tile {
+    max-width: 100%;
+    padding: 10px 6.6667px;
+    background: none;
+    text-align: center;
+    line-height: 16px;
+    color: rgb(100, 88, 88);
+    /* color: #4d4d4d; */
+    border-radius: 4px;
+    border: 2px solid rgb(100, 88, 88);
+  }
 
-  
-  /* width: 200px; */
-}
+  .react-calendar__tile:disabled {
+    background-color: #f0f0f0;
+  }
 
-/* Navigation bar */
-.react-calendar__navigation {
-  display: flex;
-  height: 44px;
-  margin-bottom: 1em;
-}
+  .react-calendar__tile:enabled:hover {
+    /* color: transparent; */
+    animation-name: shhh;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+  }
 
-.react-calendar__navigation button {
-  min-width: 44px;
-  background: none;
-  border: none;
-  color: #6f48eb;
-  padding: 8px;
-  cursor: pointer;
-}
+  @keyframes shhh {
+    33% { opacity: 0.85%; }
+    66% { opacity: 0.45%; }
+    99% { opacity: 0.15%; }
+  }
 
-.react-calendar__navigation button:disabled {
-  background-color: #f0f0f0;
-  cursor: default;
-}
+  .react-calendar__tile:enabled:focus {
+    background-color: #a7a7a7;
+    font-size: 25px;
+  }
 
-.react-calendar__navigation button:enabled:hover,
-.react-calendar__navigation button:enabled:focus {
-  background-color: #e6e6e6;
-}
+  .react-calendar__tile--now {
+    /* background-color: rgb(100, 88, 88); */
+    /* color: transparent;
+    font-weight: bolder;
 
-/* Weekday labels */
-.react-calendar__month-view__weekdays {
-  text-align: center;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 0.75em;
-  color: #6f48eb;
-}
-
-/* Day tiles */
-.react-calendar__tile {
-  max-width: 100%;
-  padding: 10px 6.6667px;
-  background: none;
-  text-align: center;
-  line-height: 16px;
-  color: #4d4d4d;
-  border-radius: 50%;
-  border: none;
-}
-
-.react-calendar__tile:disabled {
-  background-color: #f0f0f0;
-}
-
-.react-calendar__tile:enabled:hover,
-.react-calendar__tile:enabled:focus {
-  background-color: #e6e6e6;
-}
-
-.react-calendar__tile--now {
-
-}
+    background-image: url('/img/singleCheckbox.png');
+    background-size: cover; 
+    background-repeat: no-repeat; */
+    font-size: 25px; 
+  }
