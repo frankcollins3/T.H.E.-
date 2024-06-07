@@ -11,21 +11,21 @@
 
 
 export interface keyRatiosINTERFACE {
-    id: number,
-    marketCap: number | null
-    sharesOutstanding: number,
-    peRatio: number,
-    psRatio: number,
-    pbRatio: number,
-    pegRatio: number,
-    currentRatio: number,
-    debtEquityRatio: number,
-    EPS: number,
+    id: string,
+    marketCap: string | null
+    sharesOutstanding: string,
+    peRatio: string,
+    psRatio: string,
+    pbRatio: string,
+    pegRatio: string,
+    currentRatio: string,
+    debtEquityRatio: string,
+    EPS: string,
 }
 
 export interface candlestickINTERFACE {
     id: number| null,
-    date: string | null,
+    date: string | null | any,
     open: number | null,
     high: number | null,
     low: number | null,
@@ -51,7 +51,7 @@ export interface APPLEcompanyINTERFACE {
     // analysts: analystINTERFACE | null,
 }
 
-export interface dayMonthYear {
+export interface dayMonthYearINTERFACE {
     day: string | number,
     month: string | number, 
     year: string | number
