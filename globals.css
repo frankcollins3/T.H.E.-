@@ -1,233 +1,234 @@
-  @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+import React, { createContext, useContext, ReactNode, useState, useEffect } from "react";
+import axios from 'axios';
+
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from 'redux/store/rootReducer';
+import { 
+  TOGGLE_CANDLESTICK_CHART_VIEW_MULTI,
+  TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O, 
+  TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H, 
+  TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C, 
+  TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L,
+  TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V,
+  SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC,
+  SET_CANDLESTICK_CHART_CURR_DATA
+} from 'redux/stocks/stocksSlice';
+
+// Utility
+import season from "utility/candlestickData"
+import { nothing } from "utility/utilityValues";
+import { APPLEcompanyINTERFACE } from "Interface/InterfaceTypes";
+
+type StocksTypes = {  
+    APPLE: APPLEcompanyINTERFACE;
+    resetOHLCV: () => void;
+    checkboxClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    singleMultiViewToggle: () => void;
+    setOHLCsetLastSelectedOHLC: (char:string) => void;
+    filterCandlestickData: (startDate:string, endDate:string) => void;
+}
+
+const StocksDefaults: StocksTypes = {
+    APPLE: {
+        keyRatios: {
+            id: 0,
+            marketCap: 0,
+            sharesOutstanding: 0,
+            peRatio: 0,
+            psRatio: 0,
+            pbRatio: 0,
+            pegRatio: 0,
+            currentRatio: 0,
+            debtEquityRatio: 0,
+            EPS: 0
+        },
+        candleStick: { 
+            id: 0,
+            date: "00:00",
+            open: 0,
+            high: 0,
+            low: 0,
+            close: 0,
+            volume: 0,            
+        },
+        tradeTicker: { 
+            id: 0,
+            time: "00:00",
+            quantity: 0,
+            price: 0,
+        }
+    },
+    resetOHLCV: () => {},
+    checkboxClick: () => {},
+    singleMultiViewToggle: () => {},
+    setOHLCsetLastSelectedOHLC: (char:string) => {},
+    filterCandlestickData: (startDate:string, endDate:string) => {}
+}
+
+const StocksContext = createContext<StocksTypes>(StocksDefaults);
+
+export function useStocks() {
+    return useContext(StocksContext);
+}
+
+type Props = { children: ReactNode }
+
+export function StocksProvider({ children }: Props) {
+    const dispatch = useDispatch();
+
+    const CANDLESTICK_CHART_VIEW_MULTI = useSelector((state: RootState) => state.stocks.CANDLESTICK_CHART_VIEW_MULTI);
+    const CANDLESTICK_CHART_MULTI_SHOW_O = useSelector((state: RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_O);
+    const CANDLESTICK_CHART_MULTI_SHOW_H = useSelector((state: RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_H);
+    const CANDLESTICK_CHART_MULTI_SHOW_L = useSelector((state: RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_L);
+    const CANDLESTICK_CHART_MULTI_SHOW_C = useSelector((state: RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_C);
+    const CANDLESTICK_CHART_MULTI_SHOW_V = useSelector((state: RootState) => state.stocks.CANDLESTICK_CHART_MULTI_SHOW_V);
+    const CANDLESTICK_CHART_LAST_SELECTED_OHLC = useSelector((state: RootState) => state.stocks.CANDLESTICK_CHART_LAST_SELECTED_OHLC);
+
+    const APPLE = {
+        keyRatios: {
+            id: 0,
+            marketCap: 0,
+            sharesOutstanding: 0,
+            peRatio: 0,
+            psRatio: 0,
+            pbRatio: 0,
+            pegRatio: 0,
+            currentRatio: 0,
+            debtEquityRatio: 0,
+            EPS: 0
+        },
+        candleStick: { 
+            id: 0,
+            date: "01-01-0001",
+            open: 0,
+            high: 0,
+            low: 0,
+            close: 0,
+            volume: 0,            
+        },
+        tradeTicker: { 
+            id: 0,
+            time: "00:00",
+            quantity: 0,
+            price: 0,
+        }   
+    }
+
+    const resetOHLCV = () => {
+        console.log("this invokes")
+        Promise.all([
+            // CANDLESTICK_CHART_MULTI_SHOW_O 
+            CANDLESTICK_CHART_MULTI_SHOW_O === true && dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O()),
+            CANDLESTICK_CHART_MULTI_SHOW_H === true && dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H()),
+            CANDLESTICK_CHART_MULTI_SHOW_L === true && dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L()),
+            CANDLESTICK_CHART_MULTI_SHOW_C === true && dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C()),
+            CANDLESTICK_CHART_MULTI_SHOW_V === true && dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V()),
+        ]).then(() => {
+            if (CANDLESTICK_CHART_VIEW_MULTI) {
+                // resetOHLCV(); // Make sure this does not cause an infinite loop
+            }
+        });
+    }
+
+    const checkboxClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const id = event.target.id;
+
+        if (!id) return;
+
+        if (!CANDLESTICK_CHART_VIEW_MULTI) {
+            resetOHLCV();
+        }
+
+        switch (id) {
+            case "chbx1":
+                dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O());
+                break;
+            case "chbx4":
+                dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H());
+                break;
+            case "chbx5":
+                dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L());
+                break;
+            case "chbx6":
+                dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C());
+                break;
+            default:
+                break;
+        }
+    }
+
+    const singleMultiViewToggle = () => {
+        if (CANDLESTICK_CHART_VIEW_MULTI) {
+            resetOHLCV();
+        }
+
+        // switch (CANDLESTICK_CHART_LAST_SELECTED_OHLC) {
+        //     case "o":
+        //         dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O());
+        //         break;
+        //     case "h":
+        //         dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H());
+        //         break;
+        //     case "l":
+        //         dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L());
+        //         break;
+        //     case "c":
+        //         dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C());
+        //         break;
+        //     case "v":
+        //         dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V());
+        //         break;
+        //     default:
+        //         break;
+        // }
+
+        dispatch(TOGGLE_CANDLESTICK_CHART_VIEW_MULTI());
+    }
+
+    const setOHLCsetLastSelectedOHLC = (char:string) => {
+        console.log('char',char)
+        // state setting so void but have to return value. 
+        if (char === 'o') { Promise.all([dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O()), dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("o"))]) }
+        if (char === 'h') { Promise.all([dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H()), dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("h"))]) }
+        if (char === 'l') { Promise.all([dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L()), dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("l"))]) }
+        if (char === 'c') { Promise.all([dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C()), dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("c"))]) }
+        if (char === 'v') { Promise.all([dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V()), dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("v"))]) }
+        return CANDLESTICK_CHART_LAST_SELECTED_OHLC || null;
+    }
+
+    function filterCandlestickData(startDate:string, endDate:string) {
+        // const startDate = "5-3-2024";
+        // const endDate = "5-31-2024";
     
-  body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-    background-color: rgba(255, 255, 255, 0.922);
-    /* background-color: #FAF0E6; */
-    /* #F8F8FF; #FFFAF0; */
-  }
-
-    .ghost {
-      opacity: 0.0;
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        
+        const filteredData = season.filter(item => {
+            const itemDate = new Date(item?.date);
+            // if itemDate is greater than start and less than end return that item 
+            return itemDate >= start && itemDate <= end;
+        });
+        
+        dispatch(SET_CANDLESTICK_CHART_CURR_DATA(filteredData));
+        // console.log(filteredData);
     }
 
-    #introMain {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 100vh;
-      min-width: 100vw;
-      overflow: hidden;
-      box-sizing: border-box;        
+    // dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O())
+    //                 dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("o"))
+            
+    const value = {        
+        APPLE,
+        resetOHLCV,
+        checkboxClick,
+        singleMultiViewToggle,
+        setOHLCsetLastSelectedOHLC,
+        filterCandlestickData
     }
 
-    #MainIntro {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;  /* will be start */
-      align-items: center;
-      min-height: 100vh;
-      min-width: 100vw;
-      
-    }
-
-    #intro-row-main {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: row;    
-      
-    }  
-    #introFooter {
-      background-color: #9a7c5e;    
-      min-height: 10vh;
-      min-width: 100vw;    
-
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-;
-      flex-direction: row;
-      
-      background-image: url('/dojo-img/shuriken.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-
-    #footerTabs {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-    }
-
-    #footerOrigamiSwan {
-      height: 85px;
-      width: 85px;
-      align-self: center;
-      position: relative;
-      left: 5px; 
-    }
-
-    #footerShuriken {
-      height: 15px;
-      width: 15px;
-      align-self: center;
-      position: relative;
-      right: 5px; 
-    }
-
-    .introFooterText {
-      font-family: Josefin Sans;
-      font-weight: bolder;
-      margin-left: 0.5em; 
-      margin-right: 0.5em; 
-      font-size: 18px; 
-    }
-
-    .introFooterText:hover { 
-      cursor: pointer;
-
-    }
-
-    #loginSignupMsg {
-      color: #351e0e;
-      font-size: 18px;
-    }
-
-    .halfPint { transform: scale(0.5); }
-
-    #candlestickChart {
-      font-family: cursive;
-      /* border: 1px solid rgba(0, 0, 0, 0.357);      */
-      height: 600px;
-      border-radius: 6px;
-      /* box-shadow: 2px 2px 2px moccasin; */
-    }
-
-    /* can only syle the linechart */
-    /* #tipbox { border-radius: 50%; color: purple; } */
-    
-    .line {
-      border: 2px solid #dbcfdf;    
-    }
-
-    /* react calendar styling haha */
-
-    /* react-calendar: The main container of the calendar.
-  react-calendar__navigation: The navigation bar at the top of the calendar, containing the month/year switcher and navigation buttons.
-  react-calendar__month-view__weekdays: The container for the weekdays row.
-  react-calendar__month-view__days: The container for the days of the month.
-  react-calendar__tile: A single day tile.
-  react-calendar__tile--active: The currently selected day tile.
-  react-calendar__tile--now: The tile for the current day.
-  react-calendar__tile--range: The tiles within a selected date range.
-  react-calendar__tile--rangeStart: The start of a selected date range.
-  react-calendar__tile--rangeEnd: The end of a selected date range. */
-
-  /* Main calendar container */
-  .react-calendar {
-    border: 2px solid rgb(100, 88, 88);
-    font-family: "Lato", Helvetica, sans-serif;
-    line-height: 1.125em;
-    width: 300px;
-    border-radius: 4px; 
-
-    /* width: 200px; */
-  }
-
-  /* Navigation bar */
-  .react-calendar__navigation {
-    display: flex;
-    height: 44px;
-    margin-bottom: 1em;
-  }
-
-  .react-calendar__navigation button {
-    min-width: 44px;
-    background: none;
-    border: none;
-    color: #6f48eb;
-    padding: 8px;
-    cursor: pointer;
-  }
-
-  .react-calendar__navigation button:disabled {
-    background-color: #f0f0f0;
-    cursor: default;
-  }
-
-  .react-calendar__navigation button:enabled:hover,
-  .react-calendar__navigation button:enabled:focus {
-    background-color: #e6e6e6;
-  }
-
-  /* Weekday labels */
-  .react-calendar__month-view__weekdays {
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 0.75em;
-    color: #6f48eb;
-    /* border-radiu */
-  }
-
-  /* Day tiles */
-  .react-calendar__tile {
-    max-width: 100%;
-    padding: 10px 6.6667px;
-    background: none;
-    text-align: center;
-    line-height: 16px;
-    color: rgb(100, 88, 88);
-    /* color: #4d4d4d; */
-    border-radius: 4px;
-    border: 2px solid rgb(100, 88, 88);
-  }
-
-  .react-calendar__tile:disabled {
-    background-color: #f0f0f0;
-  }
-
-  .react-calendar__tile:enabled:hover {
-    /* color: transparent; */
-    animation-name: shhh;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
-    
-  }
-
-  @keyframes shhh {
-    /* wow! */
-    33% { opacity: 0.85%; box-shadow: 40px 40px 40px rgb(100, 88, 88); }
-    66% { opacity: 0.45%; }
-    99% { opacity: 0.15%; }
-  }
-
-  .react-calendar__tile:enabled:focus {
-    background-color: #a7a7a7;
-    font-size: 25px;
-  }
-
-  .react-calendar__tile--now {
-    /* background-color: rgb(100, 88, 88); */
-    /* color: transparent;
-    font-weight: bolder;
-
-    background-image: url('/img/singleCheckbox.png');
-    background-size: cover; 
-    background-repeat: no-repeat; */
-    font-size: 25px; 
-    animation-name: helloWorld;
-    animation-duration: 3s;
-    animatino-iteration-count: 
-  }
-
-  @keyframes helloWorld {
-    33% { opacity: 0; }
-    66% { opacity: 0.45%; }
-    100% { opacity: 100%; }
-  }
+    return (
+        <StocksContext.Provider value={value}>
+            {children}
+        </StocksContext.Provider>
+    );
+}
