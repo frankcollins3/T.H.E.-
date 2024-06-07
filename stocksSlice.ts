@@ -30,8 +30,13 @@
     CANDLESTICK_CHART_TODAYS_DATE: any; 
     CANDLESTICK_CHART_FILTER_START_DATE: string;
     CANDLESTICK_CHART_FILTER_END_DATE: string; 
-    CANDLESTICK_CHART_SHOW_FILTER: boolean;
     CANDLESTICK_CHART_COMPANY_LOGO: string;
+    
+    // these values are exclusive. SHOW_FILTER/show_calendar and show keyratios
+    // bonus if one could use AI to show where in the chart some of the key ratios come from. just wishlisting.
+    CANDLESTICK_CHART_SHOW_FILTER: boolean;
+    CANDLESTICK_CHART_SHOW_KEYRATIOS: boolean;
+    CANDLESTICK_CHART_SHOW_ANALYST_INFO: boolean;
 
     // CANDLESTICK_CHART_FILTER_ON: boolean
   }
@@ -86,8 +91,12 @@
     CANDLESTICK_CHART_TODAYS_DATE: new Date().toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' }).replace(/\//g, '-'),
     CANDLESTICK_CHART_FILTER_START_DATE: '',
     CANDLESTICK_CHART_FILTER_END_DATE: '',
-    CANDLESTICK_CHART_SHOW_FILTER: false,
     CANDLESTICK_CHART_COMPANY_LOGO: 'apple',    // defaults to apple.
+
+    
+    CANDLESTICK_CHART_SHOW_FILTER: false,
+    CANDLESTICK_CHART_SHOW_KEYRATIOS: false,
+    CANDLESTICK_CHART_SHOW_ANALYST_INFO: false
   }
                                           
   const stocksSlice = createSlice({
@@ -118,8 +127,10 @@
       // SET_CANDLESTICK_CHART_TODAYS_DATE: (state, action) => { state.CANDLESTICK_CHART_TODAYS_DATE = action.payload },
       SET_CANDLESTICK_CHART_FILTER_START_DATE: (state, action) => { state.CANDLESTICK_CHART_FILTER_START_DATE = action.payload },
       SET_CANDLESTICK_CHART_FILTER_END_DATE: (state, action) => { state.CANDLESTICK_CHART_FILTER_END_DATE = action.payload },
-      CLEAR_CANDLESTICK_CHART_FILTER: (state) => { state.CANDLESTICK_CHART_FILTER_START_DATE = '', state.CANDLESTICK_CHART_FILTER_END_DATE = '' },      
       TOGGLE_CANDLESTICK_CHART_SHOW_FILTER: (state) => { state.CANDLESTICK_CHART_SHOW_FILTER = !state.CANDLESTICK_CHART_SHOW_FILTER },      
+      CLEAR_CANDLESTICK_CHART_FILTER: (state) => { state.CANDLESTICK_CHART_FILTER_START_DATE = '', state.CANDLESTICK_CHART_FILTER_END_DATE = '' },      
+      TOGGLE_CANDLESTICK_CHART_SHOW_KEYRATIOS: (state) => { state.CANDLESTICK_CHART_SHOW_KEYRATIOS = !state.CANDLESTICK_CHART_SHOW_KEYRATIOS },
+      TOGGLE_CANDLESTICK_CHART_SHOW_ANALYST_INFO: (state) => { state.CANDLESTICK_CHART_SHOW_ANALYST_INFO = !state.CANDLESTICK_CHART_SHOW_ANALYST_INFO },
       SET_CANDLESTICK_CHART_COMPANY_LOGO: (state, action) => { state.CANDLESTICK_CHART_COMPANY_LOGO = action.payload },
     },
   });
@@ -133,7 +144,9 @@
       TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V,
       SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC, SET_CANDLESTICK_CHART_CURR_DATA, SET_CANDLESTICK_CHART_CURR_DATA_BIN,
       SET_CANDLESTICK_CHART_FILTER_START_DATE, SET_CANDLESTICK_CHART_FILTER_END_DATE, TOGGLE_CANDLESTICK_CHART_SHOW_FILTER,
-      CLEAR_CANDLESTICK_CHART_FILTER,
+
+      // filter === calendar          show key ratios                           show analyst estimates.
+      CLEAR_CANDLESTICK_CHART_FILTER, TOGGLE_CANDLESTICK_CHART_SHOW_KEYRATIOS, TOGGLE_CANDLESTICK_CHART_SHOW_ANALYST_INFO,
       SET_CANDLESTICK_CHART_COMPANY_LOGO
 
 // <DynamicLineChart would use that state as inline-styled <> element props to put company logo on calendar (not need as params since redux) 
