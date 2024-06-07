@@ -6,7 +6,8 @@
     TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C, TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L,
     TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V,
     SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC,
-    SET_CANDLESTICK_CHART_CURR_DATA
+    SET_CANDLESTICK_CHART_CURR_DATA,
+    TOGGLE_CANDLESTICK_CHART_SHOW_FILTER
     } from 'redux/stocks/stocksSlice';
 
     // components and styling.
@@ -29,8 +30,8 @@
     function RENDER() {
 
         const dispatch = useDispatch()
-        const { resetOHLCV } = useStocks();
-        const { singleCheckbox, multiCheckbox } = useImage();
+        const { resetOHLCV, setOHLCsetLastSelectedOHLC, filterCandlestickData } = useStocks();
+        const { singleCheckbox, multiCheckbox, calendar, keyIcon, commonwealth } = useImage();
 
         // if layout goes for multiple charts needs 
         const CANDLESTICK_CHART_VIEW_MULTI = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_VIEW_MULTI);
@@ -51,49 +52,45 @@
                 return;
             }
 
-            if (CANDLESTICK_CHART_VIEW_MULTI === false) {
+            if (CANDLESTICK_CHART_VIEW_MULTI === false || id === "chbx5") {
                 resetOHLCV()
             }
 
-            console.log('id', id)
+            // even for multi. volume never shows up with other tickers at the same time atleast with this current planned UI.
+            if (id !== "chbx5" && CANDLESTICK_CHART_MULTI_SHOW_V === true) {
+                console.log("do we get to this block")
+                dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V())
+            } 
 
-            // if volume is on but we click another line besides volume than close volume
-            if (CANDLESTICK_CHART_MULTI_SHOW_V === true) {
-                if (id !== "chbx5") {
-                    dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V())
-                }
-            }
+            // if volume is on but we click another line besides volume than close volume         
 
             if (id === "chbx1") {
                 console.log("atleast were over here");
-                // if (CANDLESTICK_CHART_MULTI_SHOW_O === false) {
+                    // setOHLCsetLastSelectedOHLC('o')
                     dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_O())
                     dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("o"))
                 // }
             }
             else if (id === "chbx2") {
-                // console.log("bx4 lets gooo!!!!!");
-                // if (CANDLESTICK_CHART_MULTI_SHOW_H === false) {
+                // setOHLCsetLastSelectedOHLC('h')
                     dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_H())
                     dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("h"))
-                // }
             }
             else if (id === "chbx3") {
-                // console.log("chbx5 of course");
-                // if (CANDLESTICK_CHART_MULTI_SHOW_C === false) {
+                // setOHLCsetLastSelectedOHLC('l')
                     dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_L())
-                    dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("l"))
-                // }
-            // }
+                    dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("l"))                
             }
             if (id === "chbx4") {
-                // if (CANDLESTICK_CHART_MULTI_SHOW_L === false) {
+                // setOHLCsetLastSelectedOHLC('c')
                     dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_C())
                     dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("c"))
-                // }
             }
             if (id === "chbx5") {
-                    resetOHLCV();
+                console.log('hey hey hey in this block')
+                    if (CANDLESTICK_CHART_VIEW_MULTI === true) {
+                        dispatch(TOGGLE_CANDLESTICK_CHART_VIEW_MULTI())
+                    }
                     dispatch(TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V())
                     dispatch(SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC("v"))
             }
@@ -127,58 +124,26 @@
             dispatch(TOGGLE_CANDLESTICK_CHART_VIEW_MULTI())
         }
 
-
-
-        const filterDataByParams = () => {
-            console.log(CANDLESTICK_CHART_CURR_DATA[1])
-            if (CANDLESTICK_CHART_CURR_DATA[1] === null || CANDLESTICK_CHART_CURR_DATA[1] === undefined) {
-                dispatch(SET_CANDLESTICK_CHART_CURR_DATA(season))
-            } else {
-                // split day from date.
-
-                let filteredData = CANDLESTICK_CHART_CURR_DATA.reduce(async (currData) => {
-                    let conditionMet:boolean = false;
-                    console.log(currData)
-                    const { date } = currData;
-                    let startDate = '5-1-2024'
-                    let cutoffDate = '5-9-2024'
-
-                    // REUSABLE FUNCTION that applies that object to params. use it for:     [startDate, cutoffDate, curData]
-                    //  const startDate as params
-                    let startDateObject = await splitDateSetObject(startDate);
-                    let cutoffDateObject = await splitDateSetObject(cutoffDate);
-
-                    console.log('startdateobject', startDateObject)
-                    console.log('cutoffdateObject', cutoffDateObject)
-                    // bypassing helper functions
-                    
-                    if (currData?.date === cutoffDate) {
-                        conditionMet = true;
-                    } else {
-
-                    }
-
-            
-
-                })
-            }
-
+        const test = () => {
+            console.log('CANDLESTICK_CHART_CURR_DATA', CANDLESTICK_CHART_CURR_DATA)
+            console.log('CANDLESTICK_CHART_MULTI_VIEW_V', CANDLESTICK_CHART_MULTI_SHOW_V)
         }
 
         return (
-            <Container id={styles.cont}>            
-
+            <Container id={styles.cont}>
 
             <Container id={styles.subCont1}>
             <p className={styles.checkboxText}> View </p>
             <img onClick={singleMultiViewToggle} className={styles.singleMultiChartViewBtn} src={CANDLESTICK_CHART_VIEW_MULTI == true ? multiCheckbox : singleCheckbox} />
-            {/* <button onClick={singleMultiViewToggle}>  </button> */}
+            {/* <button onClick={singleMultiViewToggle}>  </button>  */}
+
             </Container>
 
             {/* could just make same classes and have differentiated inline styling to handle {align-self}  */}
             <Container id={styles.subCont2}>   
 
             
+            {/* <input checked={CANDLESTICK_CHART_MULTI_SHOW_O === true && true} onChange={() => setOHLCsetLastSelectedOHLC('o')} id="chbx1"  className={styles.chbx1} type="checkbox"/> */}
             <input checked={CANDLESTICK_CHART_MULTI_SHOW_O === true && true} onChange={checkboxClick} id="chbx1"  className={styles.chbx1} type="checkbox"/>
             <label className={styles.label1} htmlFor="chbx1"></label>
 
@@ -194,7 +159,12 @@
             <input checked={CANDLESTICK_CHART_MULTI_SHOW_V === true && true} onChange={checkboxClick} id="chbx5" className={styles.chbx5} type="checkbox"/>
             <label className={styles.label5} htmlFor="chbx5"></label>
 
-            <button onClick={filterDataByParams}> date </button>
+            {/* <button onClick={() => filterCandlestickData('5-1-2024', '6-2-2024')}> date </button> */}
+            {/* <button onClick={filterCandlestickData}> date </button> */}
+            {/* <button onClick={test}> test </button> */}
+            <img onClick={() => dispatch(TOGGLE_CANDLESTICK_CHART_SHOW_FILTER())} src={calendar} className={styles.otherIcons}/>
+            <img src={keyIcon} className={styles.otherIcons}/>
+            <img src={commonwealth} className={styles.otherIcons}/>
 
             </Container>
 
