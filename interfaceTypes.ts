@@ -57,8 +57,13 @@ export interface dayMonthYearINTERFACE {
     year: string | number
 }
 
+export interface relativityINTERFACE {
+    current: number,
+    variance: number | null
+}
+
 export interface estimateINTERFACE { 
     estimate: number,
-    rationale: string    
+    rationale: string,
+    relativity:relativityINTERFACE|null     // -10:10%         77|77%
 } 
-s
