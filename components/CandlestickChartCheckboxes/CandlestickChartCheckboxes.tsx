@@ -7,7 +7,7 @@
     TOGGLE_CANDLESTICK_CHART_MULTI_SHOW_V,
     SET_CANDLESTICK_CHART_LAST_SELECTED_OHLC,
     SET_CANDLESTICK_CHART_CURR_DATA,
-    TOGGLE_CANDLESTICK_CHART_SHOW_FILTER
+    TOGGLE_CANDLESTICK_CHART_SHOW_FILTER, TOGGLE_CANDLESTICK_CHART_SHOW_ANALYST_INFO, TOGGLE_CANDLESTICK_CHART_SHOW_KEYRATIOS
     } from 'redux/stocks/stocksSlice';
 
     // components and styling.
@@ -44,6 +44,10 @@
 
         const CANDLESTICK_CHART_LAST_SELECTED_OHLC = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_LAST_SELECTED_OHLC);
         const CANDLESTICK_CHART_CURR_DATA = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_CURR_DATA);
+
+        const CANDLESTICK_CHART_SHOW_FILTER = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_SHOW_FILTER);
+        const CANDLESTICK_CHART_SHOW_KEYRATIOS = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_SHOW_KEYRATIOS);
+        const CANDLESTICK_CHART_SHOW_ANALYST_INFO = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_SHOW_ANALYST_INFO);
 
         const checkboxClick = (event:any) => {
             const target = event?.target;
@@ -124,9 +128,23 @@
             dispatch(TOGGLE_CANDLESTICK_CHART_VIEW_MULTI())
         }
 
-        const test = () => {
-            console.log('CANDLESTICK_CHART_CURR_DATA', CANDLESTICK_CHART_CURR_DATA)
-            console.log('CANDLESTICK_CHART_MULTI_VIEW_V', CANDLESTICK_CHART_MULTI_SHOW_V)
+        const calendarClick = () => {
+            if (CANDLESTICK_CHART_SHOW_KEYRATIOS === true) dispatch(TOGGLE_CANDLESTICK_CHART_SHOW_KEYRATIOS())
+            if (CANDLESTICK_CHART_SHOW_ANALYST_INFO === true) dispatch(TOGGLE_CANDLESTICK_CHART_SHOW_ANALYST_INFO())
+        }
+
+        const keyRatioClick = () => {
+            // one at a time to show:        calendar, keyratios, or analyst_info so will need reset function.
+            if (CANDLESTICK_CHART_SHOW_FILTER === true) dispatch(TOGGLE_CANDLESTICK_CHART_SHOW_FILTER())
+            if (CANDLESTICK_CHART_SHOW_ANALYST_INFO === true) dispatch(TOGGLE_CANDLESTICK_CHART_SHOW_ANALYST_INFO())
+
+            dispatch(TOGGLE_CANDLESTICK_CHART_SHOW_KEYRATIOS())
+        }
+
+        const commonwealthClick = () => {
+            if (CANDLESTICK_CHART_SHOW_FILTER === true) dispatch(TOGGLE_CANDLESTICK_CHART_SHOW_FILTER())
+            if (CANDLESTICK_CHART_SHOW_KEYRATIOS === true) dispatch(TOGGLE_CANDLESTICK_CHART_SHOW_KEYRATIOS())
+            dispatch(TOGGLE_CANDLESTICK_CHART_SHOW_ANALYST_INFO())
         }
 
         return (
@@ -162,9 +180,9 @@
             {/* <button onClick={() => filterCandlestickData('5-1-2024', '6-2-2024')}> date </button> */}
             {/* <button onClick={filterCandlestickData}> date </button> */}
             {/* <button onClick={test}> test </button> */}
-            <img onClick={() => dispatch(TOGGLE_CANDLESTICK_CHART_SHOW_FILTER())} src={calendar} className={styles.otherIcons}/>
-            <img src={keyIcon} className={styles.otherIcons}/>
-            <img src={commonwealth} className={styles.otherIcons}/>
+            <img onClick={calendarClick} src={calendar} className={styles.otherIcons}/>
+            <img onClick={keyRatioClick} src={keyIcon} className={styles.otherIcons}/>
+            <img onClick={commonwealthClick} src={commonwealth} className={styles.otherIcons}/>
 
             </Container>
 
