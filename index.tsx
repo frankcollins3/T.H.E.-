@@ -21,6 +21,8 @@
   //  containers and styling
   import Container from 'react-bootstrap/Container';
   import DynamicLineChart from "components/DynamicLineChart"
+  import KeyRatios from "components/KeyRatios"
+  import AnalystEstimatesBarGraph from "components/AnalystEstimatesBarGraph"
   import Calendar from "react-calendar"
   import CandlestickChartCheckboxes from "components/CandlestickChartCheckboxes";
   import styles from "styles/Intro.module.scss"
@@ -53,6 +55,8 @@
 
     const CANDLESTICK_CHART_CURR_DATA = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_CURR_DATA);
     const CANDLESTICK_CHART_SHOW_FILTER = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_SHOW_FILTER);
+    const CANDLESTICK_CHART_SHOW_KEYRATIOS = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_SHOW_KEYRATIOS);
+    const CANDLESTICK_CHART_SHOW_ANALYST_INFO = useSelector((state:RootState) => state.stocks.CANDLESTICK_CHART_SHOW_ANALYST_INFO);
 
     const apple = {
       "Market Cap": "$2,500,000,000,000",
@@ -162,12 +166,21 @@
         id="MainIntro">      
         {/* <Container id="introMain">       */}
 
+{/* possible feature: user clicks to open: "analyst estimates" information & the ad changes & waits to show content 2-5 seconds after */}
         <img id={styles.ADazure} src={ADazure}/>
-        
-        {/* <div className="ghost"> empty </div> */}
 
-        {/* {renderLineChart} */}
+
         <Container id={styles.chartCheckBoxAndToggleCalendarRow}>
+
+        {
+          CANDLESTICK_CHART_SHOW_KEYRATIOS === true &&
+          <KeyRatios/>
+        }
+
+        {
+          CANDLESTICK_CHART_SHOW_ANALYST_INFO === true &&
+          <AnalystEstimatesBarGraph/>
+        }
 
         {
           CANDLESTICK_CHART_SHOW_FILTER === true &&
@@ -175,7 +188,7 @@
             onClickDay={(value:any, event:any) => clickDay(value, event)}
             // formatDay={(locale:any, date:any) => clickDay(locale, date)}
             />
-        }
+          }
         
         <Container id={styles.chartCheckboxCont}>
 
@@ -183,16 +196,13 @@
         <CandlestickChartCheckboxes/>
 
         </Container>
-
         </Container>
 
-        {/* <ShowAppPhone/> */}
+          {/* <KeyRatios/> */}
 
-        {/* <AllOurs/> */}      
+        {/* <h1> hey </h1> */}
 
-        {/* <IntroFooter/>  */}
-        {/* { INTRO_ANIMATION_DONE === 4  && <IntroFooter/> } */}
-
+      
         </Container>                   
       )
     }
@@ -224,4 +234,3 @@
       }
     }      
   }
-s
