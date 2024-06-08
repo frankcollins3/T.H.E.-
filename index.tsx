@@ -19,6 +19,7 @@
    } from 'redux/stocks/stocksSlice';
   
   //  containers and styling
+  import Navbar from "components/Navbar"
   import Container from 'react-bootstrap/Container';
   import DynamicLineChart from "components/DynamicLineChart"
   import KeyRatios from "components/KeyRatios"
@@ -169,6 +170,7 @@
 {/* possible feature: user clicks to open: "analyst estimates" information & the ad changes & waits to show content 2-5 seconds after */}
         <img id={styles.ADazure} src={ADazure}/>
 
+        <Navbar/>
 
         <Container id={styles.chartCheckBoxAndToggleCalendarRow}>
 
