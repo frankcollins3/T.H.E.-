@@ -59,11 +59,13 @@ export interface dayMonthYearINTERFACE {
 
 export interface relativityINTERFACE {
     current: number,
-    variance: number | null
+    variance: number | null,
+    company: string | null,
+    ticker: string | null,
 }
 
 export interface estimateINTERFACE { 
     estimate: number,
     rationale: string,
-    relativity:relativityINTERFACE|null     // -10:10%         77|77%
+    relativity:relativityINTERFACE|null,     // -10:10%         77|77%
 } 
