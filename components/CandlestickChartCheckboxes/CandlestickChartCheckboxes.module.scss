@@ -1,0 +1,434 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+$greystern: rgb(100, 88, 88);
+$slender: #dcdcdc;
+
+#cont {
+    margin: 5px 0; /* You can adjust the values to decrease or increase the spacing */
+    height: 70px;    
+    width: 450px;
+    display: flex;
+    position: relative;
+    // top: 10px;
+    left: 50px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;  
+    border-bottom: 1px solid $slender;
+}
+
+#subCont1 {    
+    height: 20px; 
+    width: 40px; 
+    // yes redundant data for readability and speed until refactor if enough time. 
+    display: flex;
+    // align-self: flex-start;
+    flex-direction: row;
+    padding: 1px;
+    // possibly space-around
+    // border: 2px solid $greystern;
+    justify-content: center;
+    align-items: center;
+    position :relative;
+    top: 2.5px; 
+    // left: 50px; 
+}
+
+#subCont2 {
+    display: flex;
+    margin-left: 50px;
+    // align-self: flex-end;
+}
+
+.innerSubCont {
+    width: 45px;
+    // border: 1px solid rgb(84, 207, 224);
+    border: red;;
+    // display: grid;
+    // grid-template-columns: 40% 40%;
+    display: flex;
+    flex-direction: row nowrap; 
+    padding: 0;
+}
+
+
+.checkboxText {
+    font-size: 9px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: gray;
+    // font-family: "Lato", sant-serif; 
+    font-weight: lighter;
+    // font-style: italic;
+    // margin: 0 50px;
+}
+
+.singleMultiChartViewBtn {
+        // for <button> with ->         "single" | "multi" -> informs user of view format. 
+
+    // position: relative;
+    // // top: 50px;
+    // top: 3px;
+    // padding: 0 5px;
+    // text-align: center;
+    // background-color: transparent;
+    // border: 2px solid $greystern;
+    // border-radius: 4px;
+    // color: $greystern;
+
+    // img (likely standing case):
+    height: 15px;
+    width: 15px;
+    position: relative;
+    // border-bottom: 2px solid $greystern;
+    border-radius: 4px;
+    // top: 2px;
+    margin: 0 2px;
+    position: relative;
+}
+
+/* Hide the default checkbox */
+.chbx1[type="checkbox"] {
+    display: none;
+}
+
+/* Style the .label to resemble a checkbox */
+.label1 {
+    display: inline-block;
+    position: relative;
+    padding-left: 25px; /* Adjust as needed */
+    cursor: pointer;
+    margin: 0 2.5px; 
+}
+
+/* Style the pseudo-element to create the checkbox */
+.label1:before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    // margin: 0 50px;    
+    width: 20px; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
+    border: 2px solid goldenrod; /* Checkbox border */
+    border-radius: 4px;
+    // border: 2px solid $greystern; /* Checkbox border */
+    background-color: transparent; /* Checkbox background color */
+}
+
+/* Style the pseudo-element when checkbox is checked */ 
+.chbx1[type="checkbox"]:checked + .label1:before {
+    // background-color: #007bff; /* Change to desired checked color */
+}
+
+/* Style the pseudo-element to resemble the checkmark */
+.label1:after {
+    content: '\2713'; /* Unicode checkmark character */
+    font-size: 16px; /* Adjust as needed */
+    // background-color: blue;
+    color: goldenrod; /* Color of the checkmark */
+    // color: $greystern; /* Color of the checkmark */
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0; /* Hide the checkmark by default */
+}
+
+/* Style the pseudo-element to show the checkmark when checkbox is checked */
+.chbx1[type="checkbox"]:checked + .label1:after {
+    opacity: 1;
+}
+
+// plainlabel:
+
+// label2 CSS *
+.chbx2[type="checkbox"] {
+    display: none;
+}
+
+/* Style the .label to resemble a checkbox */
+.label2 {
+    display: inline-block;
+    position: relative;
+    padding-left: 25px; /* Adjust as needed */
+    cursor: pointer;
+    margin: 0 2.5px; 
+}
+
+/* Style the pseudo-element to create the checkbox */
+.label2:before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    // margin: 0 50px;    
+    width: 20px; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
+    border: 2px solid #33af52; /* Checkbox border */
+    border-radius: 4px;
+    // border: 2px solid $greystern; /* Checkbox border */
+    background-color: transparent; /* Checkbox background color */
+}
+
+/* Style the pseudo-element when checkbox is checked */ 
+.chbx2[type="checkbox"]:checked + .label2:before {
+    // background-color: #007bff; /* Change to desired checked color */
+}
+
+/* Style the pseudo-element to resemble the checkmark */
+.label2:after {
+    content: '\2713'; /* Unicode checkmark character */
+    font-size: 16px; /* Adjust as needed */
+    // background-color: blue;
+    color: #33af52; /* Color of the checkmark */
+    // color: $greystern; /* Color of the checkmark */
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0; /* Hide the checkmark by default */
+}
+
+/* Style the pseudo-element to show the checkmark when checkbox is checked */
+.chbx2[type="checkbox"]:checked + .label2:after {
+    opacity: 1;
+}
+
+
+.chbx3[type="checkbox"] {
+    display: none;
+}
+
+/* Style the .label to resemble a checkbox */
+.label3 {
+    display: inline-block;
+    position: relative;
+    padding-left: 25px; /* Adjust as needed */
+    cursor: pointer;
+    margin: 0 2.5px; 
+}
+
+/* Style the pseudo-element to create the checkbox */
+.label3:before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    // margin: 0 50px;    
+    width: 20px; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
+    border: 2px solid #ed1c24; /* Checkbox border */
+    border-radius: 4px;
+    // border: 2px solid $greystern; /* Checkbox border */
+    background-color: transparent; /* Checkbox background color */
+}
+
+/* Style the pseudo-element when checkbox is checked */ 
+.chbx3[type="checkbox"]:checked + .label3:before {
+    // background-color: #007bff; /* Change to desired checked color */
+}
+
+/* Style the pseudo-element to resemble the checkmark */
+.label3:after {
+    content: '\2713'; /* Unicode checkmark character */
+    font-size: 16px; /* Adjust as needed */
+    // background-color: blue;
+    color: #ed1c24; /* Color of the checkmark */
+    // color: $greystern; /* Color of the checkmark */
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0; /* Hide the checkmark by default */
+}
+
+/* Style the pseudo-element to show the checkmark when checkbox is checked */
+.chbx3[type="checkbox"]:checked + .label3:after {
+    opacity: 1;
+}
+ 
+// start right here:
+
+.chbx4[type="checkbox"] {
+    display: none;
+}
+
+/* Style the .label to resemble a checkbox */
+.label4 {
+    display: inline-block;
+    position: relative;
+    padding-left: 25px; /* Adjust as needed */
+    cursor: pointer;
+    margin: 0 2.5px; 
+}
+
+/* Style the pseudo-element to create the checkbox */
+.label4:before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    // margin: 0 50px;    
+    width: 20px; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
+    border: 2px solid rebeccapurple; /* Checkbox border */
+    border-radius: 4px;
+    // border: 2px solid $greystern; /* Checkbox border */
+    background-color: transparent; /* Checkbox background color */
+}
+
+/* Style the pseudo-element when checkbox is checked */ 
+.chbx4[type="checkbox"]:checked + .label4:before {
+    // background-color: #007bff; /* Change to desired checked color */
+}
+
+/* Style the pseudo-element to resemble the checkmark */
+.label4:after {
+    content: '\2713'; /* Unicode checkmark character */
+    font-size: 16px; /* Adjust as needed */
+    // background-color: blue;
+    color: rebeccapurple; /* Color of the checkmark */
+    // color: $greystern; /* Color of the checkmark */
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0; /* Hide the checkmark by default */
+}
+
+/* Style the pseudo-element to show the checkmark when checkbox is checked */
+.chbx4[type="checkbox"]:checked + .label4:after {
+    opacity: 1;
+}
+
+// number 5
+
+.chbx5[type="checkbox"] {
+    display: none;
+}
+
+/* Style the .label to resemble a checkbox */
+.label5 {
+    display: inline-block;
+    position: relative;
+    padding-left: 25px; /* Adjust as needed */
+    cursor: pointer;
+    margin: 0 2.5px; 
+}
+
+/* Style the pseudo-element to create the checkbox */
+.label5:before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    // margin: 0 50px;    
+    width: 20px; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
+    border: 2px solid maroon; /* Checkbox border */
+    border-radius: 4px;
+    // border: 2px solid $greystern; /* Checkbox border */
+    background-color: transparent; /* Checkbox background color */
+}
+
+/* Style the pseudo-element when checkbox is checked */ 
+.chbx5[type="checkbox"]:checked + .label5:before {
+    // background-color: #007bff; /* Change to desired checked color */
+}
+
+/* Style the pseudo-element to resemble the checkmark */
+.label5:after {
+    content: '\2713'; /* Unicode checkmark character */
+    font-size: 16px; /* Adjust as needed */
+    // background-color: blue;
+    color: maroon; /* Color of the checkmark */
+    // color: $greystern; /* Color of the checkmark */
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0; /* Hide the checkmark by default */
+}
+
+/* Style the pseudo-element to show the checkmark when checkbox is checked */
+.chbx5[type="checkbox"]:checked + .label5:after {
+    opacity: 1;
+}
+
+
+
+
+
+.chbx0[type="checkbox"] {
+    display: none;
+}
+//  label 0 
+
+/* Style the .label to resemble a checkbox */
+.label0 {
+    display: inline-block;
+    position: relative;
+    padding-left: 25px; /* Adjust as needed */
+    cursor: pointer;
+    margin: 0 2.5px; 
+}
+
+/* Style the pseudo-element to create the checkbox */
+.label0:before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    // margin: 0 50px;    
+    width: 20px; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
+    border: 2px solid $greystern; /* Checkbox border */
+    transform: scale(0.3);
+    border-radius: 4px;
+    // border: 2px solid $greystern; /* Checkbox border */
+    background-color: transparent; /* Checkbox background color */
+}
+
+/* Style the pseudo-element when checkbox is checked */ 
+.chbx0[type="checkbox"]:checked + .label0:before {
+    // background-color: #007bff; /* Change to desired checked color */
+}
+
+/* Style the pseudo-element to resemble the checkmark */
+.label0:after {
+    content: '\2713'; /* Unicode checkmark character */
+    font-size: 16px; /* Adjust as needed */
+    // background-color: blue;
+    color: $greystern; /* Color of the checkmark */
+    // color: $greystern; /* Color of the checkmark */
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform: scale(0.33);
+    opacity: 0; /* Hide the checkmark by default */
+}
+
+/* Style the pseudo-element to show the checkmark when checkbox is checked */
+.chbx0[type="checkbox"]:checked + .label0:after {
+    opacity: 1;
+}
+
+.otherIcons {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    top: 1.25px;
+    // left: 50px;
+    margin: 0 0.5em;
+}
+
+.otherIcons:hover {
+    cursor: pointer;
+}

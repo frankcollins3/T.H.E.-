@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+$greystern: rgb(100, 88, 88);
+$slender: #dcdcdc;
+$andTall: #bcbcbc;
+$noto: "Noto Sans", sans-serif;
+
+#barGraphCont {
+    // position: relative;    
+    // margin: 0 auto;
+    // border: 2px solid $greystern;
+    // height: 200px;
+    // width: 200px;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // padding: 20px;
+    // border-radius: 5px;
+    
+    background-color: transparent;
+    height: 200px;
+    // width: 1000px; 
+    // border: 5px solid blue; 
+    min-height: 200px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  // align-items: flex-start;
+  }
+
+#xAxisCompanyIconCont {
+   width: 200px;
+   display: flex;
+   border: 2px solid orange;
+   position: relative;
+   flex-direction: row nowrap;
+   justify-content: space-between;
+   padding: 10px;
+  //  align-self: center;
+}
+
+.companyIcons {
+  display: flex;
+  height: 35px;
+  width: 35px; 
+  // margin: 0 2%;
+  border-radius: 4px;
+  position: relative;
+}
+
+#bootstrapCard {
+  min-height: 200px; 
+  min-width: 300px;
+  max-width: 350px;
+}
+
+.cardTitleRow {
+  display: flex;
+  flex: 1;
+  padding: 10px;
+  justify-content: space-between;
+
+  margin: 0; 
+}
+
+#cardImgTop {
+  display: flex;
+  flex-direction: row;
+                              // if tinkering, take center off and it takes it off center (for this case)
+  // justify-content: center;
+  width: 200px;
+  // border: 5px solid orange;
+}
+
+#bootstrapCardBody {
+  display: flex;
+  min-height: 300px;
+  min-width: 200px; 
+  justify-content: center;
+  border: 5px solid green;
+}
+
+#analystHeaderText {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  color: $andTall;
+  font-weight: bolder;
+  justify-content: flex-start;
+  height: 20px; 
+  font-family: "Lato", serif;
+  font-size: 22px;
+  padding: 10px;
+}
+
+#analystRationaleText {
+  font-family: $noto;
+  font-size: 14px;
+  text-align: center;
+  max-width: 200px; 
+}
+
+#estimateInfoIcon {
+  // width: 50%;
+  display: flex;
+  align-self: center;
+  height: 25px;
+  width: 25px; 
+  padding: 0 10px; 
+}

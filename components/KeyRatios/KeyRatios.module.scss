@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+$greystern: rgb(100, 88, 88);
+
+.container {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+    // padding: 20px;
+    // border: 1px solid #ccc;
+    border-radius: 50%;
+    transform: scale(0.75);
+    // left: 200px;
+    // top: -50px;
+  }
+
+  .center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+  }
+
+  .orbit {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .orbit .ratioText {
+    position: absolute;
+    font-size: 14px;
+    // font-size: 8px;
+    font-family: "Lato", sant-serif; 
+    border-radius: 50%;
+    border: 2px solid $greystern;
+    padding: 0 10px; 
+    transform: scale(1.0);
+  }
+
+  .ratioText:hover { 
+    cursor: pointer;
+  }
+
+  .ratioText:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
+  .ratioText:nth-child(2) { top: 50%; left: 0; transform: translateY(-50%); }
+  .ratioText:nth-child(3) { top: 100%; left: 50%; transform: translate(-50%, -100%); }
+  .ratioText:nth-child(4) { top: 50%; left: 100%; transform: translate(-100%, -50%); }
+  .ratioText:nth-child(5) { top: 15%; left: 15%; }
+  .ratioText:nth-child(6) { top: 15%; left: 85%; transform: translateX(-100%); }
+  .ratioText:nth-child(7) { top: 85%; left: 15%; transform: translateY(-100%); }
+  .ratioText:nth-child(8) { top: 85%; left: 85%; transform: translate(-100%, -100%); }

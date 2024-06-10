@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+// /dojo-img/shuriken.png
+
+$greystern: rgb(100,88,88);
+$coolgrey: rgb(168, 160, 160);
+$noto: "Noto Sans", sans-serif;
+$blackrevolver: rgba(0, 0, 0, 0.357);
+$gentlesharpie: rgba(0, 0, 0, 0.622);
+
+.navbar {
+  // overflow: hidden;
+  font-family: $noto;
+  // background-color: lighten($greystern, 50%);  /* Background color */
+  color: $greystern;
+  // width: 100%;
+  width: 85.5%;
+  padding: 0 5%;
+  height: 75px;
+  border-radius: 8px;
+  border-bottom: 12px solid $gentlesharpie;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rightSideCont {
+  // width: 300px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Links inside the navbar */
+.navbar a {
+  float: left;
+  display: block;
+  color: $greystern; /* Text color */
+  text-align: center;
+  padding: 14px 20px; /* Padding */
+  // border-bottom: 12px solid $coolgrey;
+  font-family: $noto;
+  text-decoration: none; /* Remove underline */
+}
+
+/* Change background color of navbar on hover */
+.navbar a:hover {
+  // background-color: #ddd; /* Hover background color */
+  color: black; /* Text color on hover */
+}
+
+#checkLogo {
+  display: flex;
+  align-self: center;
+  position: relative;
+  left: -5%;
+}
+
+.navImg {
+  height: 50px; 
+  width: 50px;
+}
+
+#tipsText {
+  // font-weight: bold;
+  list-style-type: none;
+  font-size: 14px;
+  color: $gentlesharpie;
+  // color: darken($gentlesharpie, 5%);
+  // color: lighten($greystern, 10%);
+  margin: 0 25px; 
+}
+
+#tipsText:hover {
+  cursor: hidden;
+}
+
+.navbarTextColumns {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border:1px solid hotpink;
+}
+
+#navbarInput {
+  width: 35%;
+  height: 30px;
+  border-radius: 50px;
+  border: 2px solid $gentlesharpie;
+
+}
+#navbarInput:focus {
+  outline: none;
+  border: 2px solid rgba(0, 0, 0, 0.9); /* Darken by 10% */
+}

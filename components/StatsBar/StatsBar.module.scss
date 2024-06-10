@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+// /dojo-img/shuriken.png
+
+$greystern: rgb(100,88,88);
+$coolgrey: rgb(168, 160, 160);
+$noto: "Noto Sans", sans-serif;
+$blackrevolver: rgba(0, 0, 0, 0.357);
+$gentlesharpie: rgba(0, 0, 0, 0.622);
+$slender: #dcdcdc;
+$andTall: #bcbcbc;
+
+#cont {
+    height: 50px;
+    font-family: "Lato", sans-serif;
+    border-radius: 5px;
+    min-width: 100px;      
+    display: flex;
+    flex: 1;
+    padding: 10px; 
+    justify-content: center;
+    
+    // border: 5px solid hotpink;
+    align-self: center; 
+}
