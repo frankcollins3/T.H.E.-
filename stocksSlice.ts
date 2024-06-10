@@ -3,10 +3,11 @@
 
   //                ../ probably better as candlestickChartSlice.ts but in case we extended this and wanted to keep same file like redux-connect.
   interface StocksSliceState {
+    CURR_COMPANY: APPLEcompanyINTERFACE;
     APPLE: APPLEcompanyINTERFACE;
 
     // toggles, determines to which of the below state options a user's selection applies: CANDLESTICK_CHART_SINGLE_SELECTION | CANDLESTICK__MULTI_SELECTION
-
+        
     // change to string
     CANDLESTICK_CHART_VIEW_MULTI: boolean;
     CANDLESTICK_CHART_VIEW_HL_OC: boolean;
@@ -24,6 +25,7 @@
     // changing UI from 2 L-chkbox to 1: single|multi.. if user checked multiple lines & toggles to single chart only:  keep last selected line
     CANDLESTICK_CHART_LAST_SELECTED_OHLC: string,
     CANDLESTICK_CHART_CURR_DATA: candlestickARRAYTYPE // array of single interfaces { O H L C V:number }
+    CANDLESTICK_CHART_CALENDAR_TODAY_CLICKED: boolean;
     
     // to show more than 1 charts done with dynamic component:          <Chart data={data}/>    // OHLCV data.
     CANDLESTICK_CHART_CURR_DATA_BIN: candlestickARRAYTYPE[] // array of those arrays to i.e -> compare apple against microsoft
@@ -58,10 +60,47 @@
     KR_EPS: string
     KR_EPS_IS_CLICKED: boolean;
 
+    ANALYST_CURRENT_COMPANY: string;
+    ANALYST_CURRENT_INDEX: number
+    ANALYST_BARCHART_DATA: any[];  // apple | company
+    COMPANY_ICON_BIN: string[];  
+    ANALYST_PAGINATION_INDEX: number;
+  
+
     // CANDLESTICK_CHART_FILTER_ON: boolean
   }
 
   const initialState: StocksSliceState = {    
+    CURR_COMPANY: {
+      keyRatios: {
+          id: 0,
+          MktCap: 0,
+          Shares: 0,
+          PE: 0,
+          PS: 0,
+          PB: 0,
+          PEG: 0,
+          Current: 0,
+          DE: 0,
+          EPS: 0
+        },
+        candleStick: { 
+            id: 0,
+            date: "01-01-0001",
+            open: 0,
+            high: 0,
+            low: 0,
+            close: 0,
+            volume: 0,            
+        },
+        tradeTicker: { 
+            id: 0,
+            time: "00:00",
+            quantity: 0,
+            price: 0,
+        }   
+    },
+
     APPLE:{
         keyRatios: {
             id: 0,
@@ -112,30 +151,40 @@
     CANDLESTICK_CHART_FILTER_START_DATE: '',
     CANDLESTICK_CHART_FILTER_END_DATE: '',
     CANDLESTICK_CHART_COMPANY_LOGO: 'apple',    // defaults to apple.
-
+    CANDLESTICK_CHART_CALENDAR_TODAY_CLICKED: false,
     
     CANDLESTICK_CHART_SHOW_FILTER: false,
     CANDLESTICK_CHART_SHOW_KEYRATIOS: false,
     CANDLESTICK_CHART_SHOW_ANALYST_INFO: false,
 
-    KR_MKT_CAP: "",
+    KR_MKT_CAP: "500B",
     KR_MKT_CAP_IS_CLICKED: false,
-    KR_SHARES: "",
+    KR_SHARES: "2B",
     KR_SHARES_IS_CLICKED: false,
-    KR_PE: "",
+    KR_PE: "25.3",
     KR_PE_IS_CLICKED: false,
-    KR_PS: "",
+    KR_PS: "5.8",
     KR_PS_IS_CLICKED: false,
-    KR_PB: "",
+    KR_PB: "4.2",
     KR_PB_IS_CLICKED: false,
-    KR_PEG: "",
+    KR_PEG: "1.6",
     KR_PEG_IS_CLICKED: false,
-    KR_CURRENT: "",
+    KR_CURRENT: "2.1",
     KR_CURRENT_IS_CLICKED: false,
-    KR_DE: "",
+    KR_DE: "0.7",
     KR_DE_IS_CLICKED: false,
-    KR_EPS: "",
+    KR_EPS: "10.25",
     KR_EPS_IS_CLICKED: false,
+    
+    ANALYST_CURRENT_COMPANY: "",
+    ANALYST_CURRENT_INDEX: 0,
+    ANALYST_BARCHART_DATA: [],
+    COMPANY_ICON_BIN: [
+      '/img/bofaLogo.png', '/img/citibankLogo.png', '/img/goldmanSachsLogo.png',
+      '/img/morganStanleyLogo.png', '/img/jpMorganLogo.png', '/img/moelisLogo.png',
+      '/img/lazarusLogo.png', '/img/evercoreLogoLogo.png'
+    ],
+    ANALYST_PAGINATION_INDEX: 0,
   }
                                           
   const stocksSlice = createSlice({
@@ -143,6 +192,7 @@
     initialState,
     reducers: { 
 
+      SET_CURR_COMPANY: (state, action) => { state.CURR_COMPANY = action.payload },
       SET_APPLE: (state, action) => { state.APPLE = action.payload },
       
       SET_APPLE_KEY_RATIOS: (state, action) => { state.APPLE.keyRatios = action.payload },    
@@ -171,6 +221,8 @@
       TOGGLE_CANDLESTICK_CHART_SHOW_KEYRATIOS: (state) => { state.CANDLESTICK_CHART_SHOW_KEYRATIOS = !state.CANDLESTICK_CHART_SHOW_KEYRATIOS },
       TOGGLE_CANDLESTICK_CHART_SHOW_ANALYST_INFO: (state) => { state.CANDLESTICK_CHART_SHOW_ANALYST_INFO = !state.CANDLESTICK_CHART_SHOW_ANALYST_INFO },
       SET_CANDLESTICK_CHART_COMPANY_LOGO: (state, action) => { state.CANDLESTICK_CHART_COMPANY_LOGO = action.payload },
+      TOGGLE_CANDLESTICK_CHART_CALENDAR_TODAY_CLICKED: (state) => { state.CANDLESTICK_CHART_CALENDAR_TODAY_CLICKED = !state.CANDLESTICK_CHART_CALENDAR_TODAY_CLICKED },
+
 
       // conventional @redux/toolkit would have it's own keyratios slice but redux-connect single store. just keeping it one for now. 
       SET_KR_MKT_CAP: (state, action) => { state.KR_MKT_CAP = action.payload },
@@ -191,12 +243,19 @@
       TOGGLE_KR_DE_IS_CLICKED: (state) => { state.KR_DE_IS_CLICKED = !state.KR_DE_IS_CLICKED },
       SET_KR_EPS: (state, action) => { state.KR_EPS = action.payload },
       TOGGLE_KR_EPS_IS_CLICKED: (state) => { state.KR_EPS_IS_CLICKED = !state.KR_EPS_IS_CLICKED },
+      
+      SET_ANALYST_BARCHART_DATA: (state, action) => { state.ANALYST_BARCHART_DATA = action.payload },
+      SET_ANALYST_CURRENT_INDEX: (state, action) => { state.ANALYST_CURRENT_INDEX = action.payload },
+      SET_COMPANY_ICON_BIN: (state, action) => { state.COMPANY_ICON_BIN = action.payload },
+      SET_ANALYST_CURRENT_COMPANY: (state, action) => { state.ANALYST_CURRENT_COMPANY = action.payload },
+      SET_ANALYST_PAGINATION_INDEX: (state, action) => { state.ANALYST_PAGINATION_INDEX = action.payload },
+      
     },
   });
 
   export const 
   { 
-      SET_APPLE, SET_APPLE_KEY_RATIOS, SET_APPLE_CANDLESTICK, SET_APPLE_TICKER,        
+      SET_CURR_COMPANY, SET_APPLE, SET_APPLE_KEY_RATIOS, SET_APPLE_CANDLESTICK, SET_APPLE_TICKER,        
       TOGGLE_CANDLESTICK_CHART_VIEW_MULTI, 
       SET_CANDLESTICK_CHART_SINGLE_SELECTION, SET_CANDLESTICK_CHART_MULTI_SELECTION,
 
@@ -210,7 +269,9 @@
       SET_KR_MKT_CAP, SET_KR_SHARES, SET_KR_PE, SET_KR_PS, SET_KR_PB, SET_KR_PEG, SET_KR_CURRENT, SET_KR_DE, SET_KR_EPS,
       TOGGLE_KR_MKT_CAP_IS_CLICKED, TOGGLE_KR_SHARES_IS_CLICKED, 
       TOGGLE_KR_PE_IS_CLICKED, TOGGLE_KR_PS_IS_CLICKED, TOGGLE_KR_PB_IS_CLICKED, TOGGLE_KR_PEG_IS_CLICKED, 
-      TOGGLE_KR_DE_IS_CLICKED, TOGGLE_KR_CURRENT_IS_CLICKED, TOGGLE_KR_EPS_IS_CLICKED
+      TOGGLE_KR_DE_IS_CLICKED, TOGGLE_KR_CURRENT_IS_CLICKED, TOGGLE_KR_EPS_IS_CLICKED,
+
+      SET_ANALYST_CURRENT_INDEX, SET_ANALYST_BARCHART_DATA, SET_COMPANY_ICON_BIN, SET_ANALYST_CURRENT_COMPANY, SET_ANALYST_PAGINATION_INDEX
 // <DynamicLineChart would use that state as inline-styled <> element props to put company logo on calendar (not need as params since redux) 
 
   } = stocksSlice.actions;
