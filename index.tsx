@@ -24,6 +24,7 @@ import Navbar from "components/Navbar"
 import Carousel from "react-bootstrap/Carousel"
 import Container from 'react-bootstrap/Container';
 import DynamicLineChart from "components/DynamicLineChart"
+import MarketTable from "components/MarketTable"
 import KeyRatios from "components/KeyRatios"
 import AnalystEstimatesBarGraph from "components/AnalystEstimatesBarGraph"
 import Calendar from "react-calendar"
@@ -31,19 +32,36 @@ import CandlestickChartCheckboxes from "components/CandlestickChartCheckboxes";
 import StatsBar from "components/StatsBar"
 import styles from "styles/Intro.module.scss";
 
+// component composition utilities
+import ToMoneyConverter from "utility/ComponentComposition/ToMoney"
+
 // utils
-import month from "utility/candlestickData"
+import CalHeatmap from "cal-heatmap"
+import 'cal-heatmap/cal-heatmap.css'
 import {useImage} from "Contexts/Img"
 import { useStocks } from 'Contexts/StocksContext';
 import { isParamValidLocale } from 'utility/utilityValues';
 import season from "utility/candlestickData"
 import estimateBucket from "utility/analystData"
+
 // import { UserArray } from 'Interface/InterfaceTypes';
                     
 export default function Main ( props:any ) {  
 
   const dispatch = useDispatch();
   const { filterCandlestickData } = useStocks();
+
+  
+  
+  const cal = new CalHeatmap();
+
+  cal.paint().then(() => {
+    // Wait for paint() to complete before retrieving the dimensions
+    cal.dimensions(); // { width: 969, height: 142 }
+  });
+  // render( <div id="cal-heatmap"></div> )
+
+
   const { ADazure, ADventure, check, bofaLogo, citibankLogo,  } = useImage();
 
   const CANDLESTICK_CHART_TODAYS_DATE = useSelector( (state:RootState) => state.stocks.CANDLESTICK_CHART_TODAYS_DATE)
@@ -68,19 +86,38 @@ export default function Main ( props:any ) {
     // alphaAdvantage ohlcv data getter 
     const ohlcvDataSetter = async() => {
       // const url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=AAPL&interval=5min&apikey=demo';
-      let predata = await axios.get('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=112J7XA238VFAQQM')
-          
-      const data = predata?.data
+      const weeklyUrl = 'https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=AAPL&&outputsize=compact&apikey=112J7XA238VFAQQM'
+      // let urlDataLimit_10= 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=AAPL&outputsize=10&apikey=112J7XA238VFAQQM'
+
+
+
+      let predata = await axios.get(weeklyUrl);
+
       console.log('predata', predata)
+      // const data = predata.data
 
-      let time_series_data = data['Time Series (5min)']
-      console.log('time_series_data', time_series_data)
+      // timeSeries will now be JSON 25 daily request limit. note I have an API key which I've posted & will change
 
+      let timeSeries = predata['Weekly Time Series'];      
+      // let timeSeries = data['Time Series (Daily)'];
 
+      function filterDataByDateRange(timeSeries, startDate, endDate) {
+        const filteredData = {};
+        for (const date in timeSeries) {
+            if (date >= startDate && date <= endDate) {
+                filteredData[date] = timeSeries[date];
+            }
+        }
+        return filteredData;
+    }
+
+    const filteredData = filterDataByDateRange(timeSeries, "2024-5-1", "2024-5-14")
+    console.log('filteredData', filteredData)
     }
     ohlcvDataSetter();
 
   }, [CANDLESTICK_CHART_CALENDAR_TODAY_CLICKED])
+
 
   const clickDay = (value:any, event:any) => {
     // const clickDay = (locale:any, date:any) => {
@@ -125,9 +162,7 @@ export default function Main ( props:any ) {
         // recursion probably not needed as I believe above blocks cover every possible case. 
         // clickDay()
       }
-
-      // submit button free!!!!! 
-    }
+    }    
 
   const clickNavLi = (event:any) => {
         console.log('event.target', event?.target)
@@ -146,42 +181,26 @@ export default function Main ( props:any ) {
         } else {
             $(event.target).css('font-weight', '');
         }
-
-        // if ($(event.target).css('font-weight', 'bolder')[0] === true) {
-        //     $(event.target).css('font-weight', '');
-        // } else if ($(event.target).css('font-weight', 'bolder')[0] === false){
-        //     $(event.target).css('font-weight', 'bolder')
-        // }
-
-        // if (event.target) {
-        //     const attributes = event.target.attributes
-        //     const style = attributes[1]
-        //     if (style) {
-        //         if (style.nodeValue.includes('bolder')) {
-        //             $()
-        //         } else {
-        //             console.log("it does not include bolder");
-        //         } 
-        //     } else {
-        //         console.log("there is no styling");
-        //     }
-        //     console.log('event', event)
-        // }
     }
 
-  const Navbar = () => (
-    <nav className={styles.navbar}>
-    </nav>
-  );
-  
-
   const GoodMorningHeader = () => (
-    <header className={styles.goodMorningHeader}>
+    <div className={styles.goodMorningHeader}>
       <h1> Apple (aapl) </h1>
-      <h1> other half </h1>
+
+      <Container id={styles.marketTableCont}>
+        
+        <ToMoneyConverter numberToConvert={38864.08}>
+    <MarketTable market="Dow" value={38864.08} dayChange={69.05}  percentChange={0.68}/>
+        </ToMoneyConverter>
+
+    <MarketTable market="S&P 500" value={5360.79} dayChange={13.80}  percentChange={0.26}/>
+    <MarketTable market="VIX" value={12.74} dayChange={0.52}  percentChange={4.26}/>
+    <MarketTable market="Gold" value={2318.90} dayChange={-8.50}  percentChange={-0.38}/>   
+    <MarketTable market="Oil" value={77.58} dayChange={0.16}  percentChange={-0.17}/>   
+      </Container>
       {/* <p>Here is what’s happening with your projects today:</p> */}
       {/* dow, sp, nasdaq table  */}
-    </header>
+    </div>
   );
   
   const SplitBetweenSubHeader = () => (
@@ -250,7 +269,13 @@ export default function Main ( props:any ) {
             </div>
             <div className={styles.chartsContainer}>
               <Container id={styles.chartCheckboxContainer}>
+                {
+                  CANDLESTICK_CHART_MULTI_SHOW_V === true
+                  ?
+              <div id="cal-heatmap"></div>
+                  :
               <DynamicLineChart/>
+                }
               <CandlestickChartCheckboxes/>
               </Container>
               <Container id={styles.rightSideCont}>
